@@ -21,7 +21,7 @@
             <children>
                 <ImageView fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@concept.jpg" />
+                        <Image url="@ui/concept.jpg" />
                     </image>
                 </ImageView>
                 <Button fx:id="but" layoutX="734.0" layoutY="556.0" mnemonicParsing="false" onAction="#send" text="Send" />
