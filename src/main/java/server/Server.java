@@ -9,7 +9,7 @@ public class Server {
     public static void main(String[] args) {
         try {
 
-            Registry reg = LocateRegistry.createRegistry(1098);
+            Registry reg = LocateRegistry.createRegistry(1097);
             RemoteInter ri = new RemoteInterImpl();
 
             reg.rebind("RemoteInterImpl", ri);

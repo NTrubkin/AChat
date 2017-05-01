@@ -1,6 +1,8 @@
 package ui;
 
 import client.Client;
+import client.ClientInter;
+import client.ClientInterImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -11,31 +13,21 @@ public class Controller {
     private TextArea area;
     @FXML
     private TextField field;
-
-
-   public Controller (Controller cnt) {
-
-        Client clnt =  new Client();
-        clnt.Client(cnt);
-
-    }
-
-    void setClient (Client clientinterimp){
-
-    }
+    ClientInterImpl clientinterimpl;
+    private ClientInter clientInterimpll;
 
 
 
     @FXML
-    void data() /* throws RemoteException */{
+    void data() /* throws RemoteException */ {
 
 
 
        /* ClientInter clientInterImpl = new ClientInterImpl();*/
 
         String text = field.getText();
-
         area.appendText(text);
+        clientinterimpl.sendMessage(text);
         area.appendText("\n");
         field.setText("");
 
@@ -44,7 +36,8 @@ public class Controller {
     }
 
     @FXML
-    void send() /*throws RemoteException */{
+    void send(ClientInter clientInterimpll) /*throws RemoteException */ {
+    this.clientInterimpll = clientInterimpll;
     }
 
 }
