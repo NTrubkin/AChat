@@ -1,6 +1,7 @@
 package client;
 
 import server.RemoteInter;
+import ui.Controller;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -11,14 +12,13 @@ public class ClientInterImpl extends UnicastRemoteObject implements ClientInter 
     private RemoteInter remoteInterImpl;
     private String name = null;
 
-    protected ClientInterImpl(String name, RemoteInter remoteInterImpl) throws RemoteException {
+    public ClientInterImpl(Controller client, RemoteInter remoteInterImpl) throws RemoteException {
 
-        this.name = name;
+        //this.name = name;
         this.remoteInterImpl = remoteInterImpl;
         remoteInterImpl.registerClient(this);
 
-
-        Scanner scanner = new Scanner(System.in);    // 1 ввод
+/*        Scanner scanner = new Scanner(System.in);    // 1 ввод
         String message;
         int j = 0;
         while (true) {
@@ -37,9 +37,14 @@ public class ClientInterImpl extends UnicastRemoteObject implements ClientInter 
             if (j == Integer.MIN_VALUE) {
                 break;
             }
-        }
+        }*/
 
     }
+public  void up (){
+        Controller f = new Controller();
+
+}
+
 
     public void returnMessage(String message) throws RemoteException { // 6 получили сообщение от сервака. Показываем всем.
         System.out.println(message);
