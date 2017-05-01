@@ -8,14 +8,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class Controller {
-
     @FXML
     private TextArea area;
     @FXML
     private TextField field;
-    ClientInterImpl clientinterimpl;
-    private ClientInter clientInterimpll;
-
 
 
     @FXML
@@ -27,17 +23,16 @@ public class Controller {
 
         String text = field.getText();
         area.appendText(text);
-        clientinterimpl.sendMessage(text);
         area.appendText("\n");
         field.setText("");
 
         /*clientInterImpl.sendMessage(text);*/
 
     }
-
     @FXML
-    void send(ClientInter clientInterimpll) /*throws RemoteException */ {
-    this.clientInterimpll = clientInterimpll;
+    void send() {
+        data();
     }
+
 
 }

@@ -1,6 +1,7 @@
 package server;
 
 import client.ClientInter;
+import javafx.scene.Parent;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -17,22 +18,22 @@ public class RemoteInterImpl extends UnicastRemoteObject implements RemoteInter 
 
     }
 
+    public void viewNewMessage(Parent model) throws RemoteException {
+        for (ClientInter clientInter : listClients) {
+            clientInter.returnMessage(model);   // как сервис знает, что у него есть клиент? Знаееет.
+        }
+
+        // 5 возвращаем сообщение всем клиентам!
+        // каждый клиент будет отправлять сообщ через returnMessage
+    }
+
+
     public synchronized void registerClient(ClientInter clientInterImplement) throws RemoteException {
 
         this.listClients.add(clientInterImplement);
 
     }
 
-    public void viewNewMessage(String message) throws RemoteException { // 4 сервер получает в параметрах метода сообщение
-        //от клиента
-
-        for (ClientInter clientInter : listClients) {
-            clientInter.returnMessage(message);   // как сервис знает, что у него есть клиент? Знаееет.
-        }
-
-        // 5 возвращаем сообщение всем клиентам!
-        // каждый клиент будет отправлять сообщ через returnMessage
-    }
 }
 
 

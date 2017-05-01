@@ -1,24 +1,25 @@
 package client;
 
+import javafx.scene.Parent;
 import server.RemoteInter;
-import ui.Controller;
 import ui.Model;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Scanner;
 
 public class ClientInterImpl extends UnicastRemoteObject implements ClientInter {
 
     private RemoteInter remoteInterImpl;
     private String name = null;
 
-    public ClientInterImpl(Model cnt, RemoteInter remoteInterImpl) throws RemoteException {
+    public ClientInterImpl(RemoteInter remoteInterImpl) throws Exception {
 
-        //this.name = name;
+        Model model = new Model();
+        model.modelSet(this);
+
+
         this.remoteInterImpl = remoteInterImpl;
         remoteInterImpl.registerClient(this);
-        cnt.setClient(this);
 
 //      Scanner scanner = new Scanner(System.in);    // 1 ввод
 //        String message;
@@ -44,17 +45,17 @@ public class ClientInterImpl extends UnicastRemoteObject implements ClientInter 
     }
 
 
-    public void sendMessage(String msg) {
+    public void returnMessage(Parent model) throws RemoteException {
+        System.out.println(model);
+    }
+
+    public void setUi(Parent model) {
         try {
-            remoteInterImpl.viewNewMessage(msg);
+            remoteInterImpl.viewNewMessage(model);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
     }
 
 
-    public void returnMessage(String message) throws RemoteException { // 6 получили сообщение от сервака. Показываем всем.
-        System.out.println(message);
-
-    }
 }
