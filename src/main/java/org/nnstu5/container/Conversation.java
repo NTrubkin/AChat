@@ -1,5 +1,7 @@
 package org.nnstu5.container;
 
+import org.nnstu5.database.holder.ArgLine;
+
 import java.io.Serializable;
 
 /**
@@ -17,11 +19,11 @@ public class Conversation implements Serializable {
         this.creatorId = creatorId;
     }
 
-    /*public Conversation(ArgLine argLine, String idLabel, String nameLabel, String creatorIdLabel) {
+    public Conversation(ArgLine argLine, String idLabel, String nameLabel, String creatorIdLabel) {
         this(argLine.getArgHolder(idLabel).getInt(),
                 argLine.getArgHolder(nameLabel).getString(),
                 argLine.getArgHolder(creatorIdLabel).getInt());
-    }*/
+    }
 
     public int getId() {
         return id;
