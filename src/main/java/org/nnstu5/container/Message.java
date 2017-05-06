@@ -1,5 +1,7 @@
 package org.nnstu5.container;
 
+import org.nnstu5.database.holder.ArgLine;
+
 import java.io.Serializable;
 
 /**
@@ -17,12 +19,12 @@ public class Message implements Serializable {
         this.text = text;
     }
 
-/*    public Message(ArgLine argLine, String idLabel, String textLabel, String senderIdLabel) {
+    public Message(ArgLine argLine, String idLabel, String textLabel, String senderIdLabel) {
         this(argLine.getArgHolder(idLabel).getInt(),
                 argLine.getArgHolder(senderIdLabel).getInt(),
                 argLine.getArgHolder(textLabel).getString()
         );
-    }*/
+    }
 
     public int getId() {
         return id;
