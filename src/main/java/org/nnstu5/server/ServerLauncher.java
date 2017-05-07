@@ -10,7 +10,7 @@ import java.rmi.registry.Registry;
 public class ServerLauncher {
     public static void main(String[] args) {
         try {
-            Registry registry = LocateRegistry.createRegistry(1098);
+            Registry registry = LocateRegistry.createRegistry(1097);
             ServerRemote serverRemote = new Server();
 
             registry.rebind("Server", serverRemote);

@@ -1,10 +1,13 @@
 package org.nnstu5.client;
 
+import org.nnstu5.container.Message;
 import org.nnstu5.server.ServerRemote;
 import org.nnstu5.ui.Model;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Client extends UnicastRemoteObject implements ClientRemote {
 
@@ -19,22 +22,23 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
     /**
      * Отправляет серверу сообщение
      *
-     * @param text текст сообщения
+     * @param message текст сообщения
      */
-    public void sendMessageToServer(String text) throws RemoteException {
-        server.recieveMessage(text);
+    public void sendMessageToServer(Message message) throws RemoteException {
+        server.recieveMessage(message);
     }
 
     /**
      * Отображает на стороне этого клиента сообщение. Переопределено из ClientRemote
      *
-     * @param text текст сообщения
+     * @param  messages текст сообщения
      * @throws RemoteException
      */
-    public void showMessage(String text) throws RemoteException {
-        model.showMessage(text);
-        System.out.println(text);
+    public void showMessage(Message messages) throws RemoteException {
+        model.showMessage(messages);
     }
+
+
 
     /**
      * Устанавливает модель визуального интерфейса для дальнейшего использования
@@ -44,4 +48,13 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
     public void setModel(Model model) {
         this.model = model;
     }
+
+
+ public List<Message> getHistory () {
+     try {
+      return server.getHistory();
+     } catch (RemoteException e) {
+       return new ArrayList<>();
+     }
+ }
 }

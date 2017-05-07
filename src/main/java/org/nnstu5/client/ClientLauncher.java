@@ -30,7 +30,7 @@ public class ClientLauncher {
             throw new IllegalStateException("Client already started");
         }
         else {
-            registry = LocateRegistry.getRegistry("127.0.0.1", 1098);
+            registry = LocateRegistry.getRegistry("127.0.0.1", 1097);
             ServerRemote serverRemote = (ServerRemote) registry.lookup("Server");
             client = new Client(serverRemote);
             return client;

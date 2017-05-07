@@ -20,7 +20,7 @@ public class Controller {
     public void initialize() {
         // модель необходимо конструировать после того, как будут инициализированы поля разметки
         // иначе модель не сможет работать с полями
-         model = new Model(this);
+        model = new Model(this);
     }
 
     /**
@@ -31,6 +31,7 @@ public class Controller {
         String text = field.getText();
         model.sendMessage(text);
         field.clear();
+
     }
 
     /**
