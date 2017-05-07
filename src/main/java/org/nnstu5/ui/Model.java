@@ -21,6 +21,9 @@ public class Model {
         }
         client.setModel(this);
         this.controller = controller;
+
+        // подгрузить историю сбщ здесь!
+        // теперь модель конструируется после инициализации разметки
     }
 
     /**

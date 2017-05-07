@@ -16,6 +16,7 @@ public class ClientChatApplication extends Application {
 
     public static void main(String[] args) {
         launch();
+        System.exit(0);
     }
 
     /**
@@ -34,6 +35,5 @@ public class ClientChatApplication extends Application {
     @Override
     public void stop() throws Exception {
         super.stop();
-        ClientLauncher.stop();
     }
 }

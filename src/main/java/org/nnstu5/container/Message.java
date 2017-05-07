@@ -9,37 +9,36 @@ import java.io.Serializable;
  *         Conversation - контейнер для хранения и передачи информации об одном сообщении
  */
 public class Message implements Serializable {
-    private final int id;               // id сбщ в бд
-    private final int senderId;          // отправитель сбщ
     private final String text;          // текст сообщения
+    private final int senderId;         // отправитель сбщ
 
-    public Message(int id, int senderId, String text) {
-        this.id = id;
+    public Message(String text, int senderId) {
         this.senderId = senderId;
         this.text = text;
     }
 
-    public Message(ArgLine argLine, String idLabel, String textLabel, String senderIdLabel) {
-        this(argLine.getArgHolder(idLabel).getInt(),
-                argLine.getArgHolder(senderIdLabel).getInt(),
-                argLine.getArgHolder(textLabel).getString()
+    /**
+     * Конструктор, извлекающий данные сообщения из холдера ArgLine
+     * @param argLine
+     * @param textLabel
+     * @param senderIdLabel
+     */
+    public Message(ArgLine argLine, String textLabel, String senderIdLabel) {
+        this(argLine.getArgHolder(textLabel).getString(),
+                argLine.getArgHolder(senderIdLabel).getInt()
         );
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public int getSender() {
-        return senderId;
     }
 
     public String getText() {
         return text;
     }
 
+    public int getSender() {
+        return senderId;
+    }
+
     @Override
     public String toString() {
-        return "message #" + id + "; from user #" + senderId + ": " + text;
+        return "message from user #" + senderId + ": " + text;
     }
 }

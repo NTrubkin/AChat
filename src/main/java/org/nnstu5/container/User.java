@@ -15,21 +15,25 @@ public class User implements Serializable {
     private final String nickname;          // публичный никнейм пользователя
     private final String email;             // email, привязанный к аккаунту пользователя
 
+    /**
+     * Стандартный конструктор
+     * @param id
+     * @param nickname
+     * @param email
+     */
     public User(int id, String nickname, String email) {
-
         this.id = id;
-        if (nickname == null) {
-            this.nickname = "";
-        } else {
-            this.nickname = nickname;
-        }
-        if (email == null) {
-            this.email = "";
-        } else {
-            this.email = email;
-        }
+        this.nickname = nickname;
+        this.email = email;
     }
 
+    /**
+     * Конструктор, извлекающий данные пользователя из холдера ArgLine
+     * @param argLine
+     * @param idLabel
+     * @param nicknameLabel
+     * @param emailLabel
+     */
     public User(ArgLine argLine, String idLabel, String nicknameLabel, String emailLabel) {
         this(argLine.getArgHolder(idLabel).getInt(),
                 argLine.getArgHolder(nicknameLabel).getString(),

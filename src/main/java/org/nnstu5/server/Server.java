@@ -1,6 +1,7 @@
 package org.nnstu5.server;
 
 import org.nnstu5.client.ClientRemote;
+import org.nnstu5.database.ChatDatabase;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -10,9 +11,10 @@ import java.util.List;
 public class Server extends UnicastRemoteObject implements ServerRemote {
 
     private volatile List<ClientRemote> clients;
+    private ChatDatabase db = ChatDatabase.getInstance();
 
     protected Server() throws RemoteException {
-        clients = new ArrayList<ClientRemote>();
+        clients = new ArrayList<>();
     }
 
     public synchronized void registerClient(ClientRemote client) throws RemoteException {
