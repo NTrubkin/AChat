@@ -12,7 +12,7 @@ public class Server extends UnicastRemoteObject implements ServerRemote {
     private volatile List<ClientRemote> clients;
 
     protected Server() throws RemoteException {
-        clients = new ArrayList<ClientRemote>();
+        clients = new ArrayList<>();
     }
 
     public synchronized void registerClient(ClientRemote client) throws RemoteException {

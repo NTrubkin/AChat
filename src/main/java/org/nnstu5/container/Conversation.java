@@ -13,12 +13,35 @@ public class Conversation implements Serializable {
     private final String name;             // публичное имя беседы
     private final int creatorId;            // создатель беседы
 
+    /**
+     * Конструктор для хранения неизвестной системе беседы
+     * Например, только что созданной
+     * @param name
+     * @param creatorId
+     */
+    public Conversation(String name, int creatorId) {
+        this(0, name, creatorId);
+    }
+
+    /**
+     * Стандартный конструктор беседы
+     * @param id
+     * @param name
+     * @param creatorId
+     */
     public Conversation(int id, String name, int creatorId) {
         this.id = id;
         this.name = name;
         this.creatorId = creatorId;
     }
 
+    /**
+     * Конструктор, извлекающий данные беседы из холдера ArgLine
+     * @param argLine
+     * @param idLabel
+     * @param nameLabel
+     * @param creatorIdLabel
+     */
     public Conversation(ArgLine argLine, String idLabel, String nameLabel, String creatorIdLabel) {
         this(argLine.getArgHolder(idLabel).getInt(),
                 argLine.getArgHolder(nameLabel).getString(),
