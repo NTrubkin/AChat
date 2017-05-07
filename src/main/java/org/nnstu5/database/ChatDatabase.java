@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class ChatDatabase implements AutoCloseable {
 
-    private static final String DEFAULT_DB_URL = "jdbc:sqlite:Achat/src/main/resources/SQL/AChatDatabase.db";
+    private static final String DEFAULT_DB_URL = "jdbc:sqlite:src/main/resources/SQL/AChatDatabase.db";
     private static final String EXC_HEADER = "Exception: ";
     private static final String ILL_ARGS_MSG = "Some args are incorrect";
     private static final String SQL_EXC_MSG = "Something wrong with SQL";

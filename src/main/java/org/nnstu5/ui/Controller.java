@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
  * Содержит методы-обработчики событий. Без бизнес-логики.
  */
 public class Controller {
-    private final Model model = new Model(this);
+    private Model model;
 
     @FXML
     private TextArea area;
@@ -17,9 +17,16 @@ public class Controller {
     private TextField field;
 
     @FXML
+    public void initialize() {
+        // модель необходимо конструировать после того, как будут инициализированы поля разметки
+        // иначе модель не сможет работать с полями
+         model = new Model(this);
+    }
+
     /**
      * Обрабатывает нажатие на кнопку отправить
      */
+    @FXML
     void processSendButton() {
         String text = field.getText();
         model.sendMessage(text);
