@@ -5,10 +5,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 /**
- * Controller - реализует контроллерную часть mvc-паттерна визуального интерфейса чата.
+ * ControllerChat - реализует контроллерную часть mvc-паттерна визуального интерфейса чата.
  * Содержит методы-обработчики событий. Без бизнес-логики.
  */
-public class Controller {
+public class ControllerChat {
     private Model model;
 
     @FXML

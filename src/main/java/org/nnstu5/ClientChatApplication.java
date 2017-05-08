@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.nnstu5.client.ClientLauncher;
 import org.nnstu5.ui.Model;
 
 /**
@@ -26,9 +25,9 @@ public class ClientChatApplication extends Application {
      * @throws Exception
      */
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/chat.fxml"));
         primaryStage.setTitle("AChat");
-        primaryStage.setScene(new Scene(root, 800, 600));
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 
