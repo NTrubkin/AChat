@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.Controller">
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.nnstu5.ui.Controller">
     <columnConstraints>
         <ColumnConstraints />
     </columnConstraints>
@@ -24,8 +24,8 @@
                         <Image url="@concept.jpg" />
                     </image>
                 </ImageView>
-                <Button fx:id="but" layoutX="734.0" layoutY="556.0" mnemonicParsing="false" onAction="#send" text="Send" />
-                <TextField fx:id="field" focusTraversable="false" layoutX="237.0" layoutY="546.0" onAction="#data" prefHeight="44.0" prefWidth="487.0" promptText="Введите текст" />
+                <Button fx:id="but" layoutX="734.0" layoutY="556.0" mnemonicParsing="false" onAction="#processSendButton" text="Send" />
+                <TextField fx:id="field" focusTraversable="false" layoutX="237.0" layoutY="546.0" onAction="#processSendButton" prefHeight="44.0" prefWidth="487.0" promptText="Введите текст" />
                 <TextArea fx:id="area" editable="false" focusTraversable="false" layoutX="237.0" layoutY="68.0" prefHeight="463.0" prefWidth="533.0" />
             </children>
         </AnchorPane>
