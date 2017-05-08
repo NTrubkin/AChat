@@ -31,13 +31,12 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
     /**
      * Отображает на стороне этого клиента сообщение. Переопределено из ClientRemote
      *
-     * @param  messages текст сообщения
+     * @param messages текст сообщения
      * @throws RemoteException
      */
     public void showMessage(Message messages) throws RemoteException {
         model.showMessage(messages);
     }
-
 
 
     /**
@@ -50,11 +49,11 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
     }
 
 
- public List<Message> getHistory () {
-     try {
-      return server.getHistory();
-     } catch (RemoteException e) {
-       return new ArrayList<>();
-     }
- }
+    public List<Message> getHistory() {
+        try {
+            return server.getHistory();
+        } catch (RemoteException e) {
+            return new ArrayList<>();
+        }
+    }
 }

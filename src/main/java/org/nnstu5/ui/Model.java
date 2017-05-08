@@ -8,14 +8,14 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 /**
- * Controller - реализует модельную часть mvc-паттерна визуального интерфейса чата.
+ * ControllerChat - реализует модельную часть mvc-паттерна визуального интерфейса чата.
  * Содержит методы бизнес-логики. Не работает непосредственно с разметкой view и визуальными элементами
  */
 public class Model {
     private Client client;
-    private final Controller controller;
+    private final ControllerChat controller;
 
-    Model(Controller controller) {
+    Model(ControllerChat controller) {
         try {
             client = ClientLauncher.start();
         } catch (Exception exc) {
@@ -45,8 +45,8 @@ public class Model {
     }
 
 
-    private void  showHistory () {
-      showMessages(client.getHistory());
+    private void showHistory() {
+        showMessages(client.getHistory());
     }
 
     /**
@@ -60,7 +60,7 @@ public class Model {
 
     private void showMessages(List<Message> messages) {
         for (Message message : messages) {
-           controller.appendMessage(message.getText());
+            controller.appendMessage(message.getText());
         }
     }
 }
