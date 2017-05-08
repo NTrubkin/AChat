@@ -16,18 +16,11 @@ public class Model {
     private final ControllerChat controller;
 
     Model(ControllerChat controller) {
-        try {
-            client = ClientLauncher.start();
-        } catch (Exception exc) {
-            //start client failed
-        }
+        client = ClientLauncher.getClient();
         client.setModel(this);
         this.controller = controller;
 
         showHistory();
-
-        // подгрузить историю сбщ здесь!
-        // теперь модель конструируется после инициализации разметки
     }
 
     /**

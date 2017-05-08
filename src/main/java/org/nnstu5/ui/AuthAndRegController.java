@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.nnstu5.client.ClientLauncher;
 
 import java.io.IOException;
 
@@ -17,6 +18,7 @@ import java.io.IOException;
 public class AuthAndRegController {
     private static final String CHAT_FXML = "/chat.fxml";
 
+    private AuthAndRegModel model;
     @FXML
     public AnchorPane authPane;
     @FXML
@@ -24,12 +26,22 @@ public class AuthAndRegController {
 
     @FXML
     public void initialize() {
+        model = new AuthAndRegModel();
         showAuth();
     }
 
     public void processAuthButton(ActionEvent event) {
         System.out.println("auth");
-        loadChatScene(event);
+        try {
+            if(!ClientLauncher.isClientStarted()) {
+                ClientLauncher.start();
+            }
+            loadChatScene(event);
+        }
+        catch (Exception exc) {
+            System.out.println("Cannot load chat");
+            exc.printStackTrace();
+        }
     }
 
     public void showAuth() {
