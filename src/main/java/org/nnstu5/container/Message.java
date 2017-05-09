@@ -33,7 +33,7 @@ public class Message implements Serializable {
         return text;
     }
 
-    public int getSender() {
+    public int getSenderId() {
         return senderId;
     }
 

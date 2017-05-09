@@ -30,8 +30,7 @@ public class Model {
      */
     void sendMessage(String text) {
         try {
-            Message message = new Message(text, 1);
-            client.sendMessageToServer(message);
+            client.sendMessageToServer(text);
         } catch (RemoteException exc) {
             // sending message failed
         }
@@ -48,12 +47,12 @@ public class Model {
      * @param message
      */
     public void showMessage(Message message) {
-        controller.appendMessage(message.getText());
+        controller.appendMessage("#" + message.getSenderId() + ": " + message.getText());
     }
 
     private void showMessages(List<Message> messages) {
         for (Message message : messages) {
-            controller.appendMessage(message.getText());
+            showMessage(message);
         }
     }
 }

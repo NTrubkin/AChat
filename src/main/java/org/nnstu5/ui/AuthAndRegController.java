@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.nnstu5.client.ClientLauncher;
@@ -17,8 +18,22 @@ import java.io.IOException;
  */
 public class AuthAndRegController {
     private static final String CHAT_FXML = "/chat.fxml";
-
     private AuthAndRegModel model;
+
+    @FXML
+    public TextField authEmail;
+    @FXML
+    public TextField authPass;
+
+    @FXML
+    public TextField regEmail;
+    @FXML
+    public TextField regNickname;
+    @FXML
+    public TextField regPassword;
+    @FXML
+    public TextField regPassConfirmation;
+
     @FXML
     public AnchorPane authPane;
     @FXML
@@ -32,17 +47,10 @@ public class AuthAndRegController {
 
     public void processAuthButton(ActionEvent event) {
         System.out.println("auth");
-        try {
-            if(!ClientLauncher.isClientStarted()) {
-                ClientLauncher.start();
-            }
-            loadChatScene(event);
-        }
-        catch (Exception exc) {
-            System.out.println("Cannot load chat");
-            exc.printStackTrace();
-        }
+        model.authorizeAndLoadChat(authEmail.getText(), authPass.getText());
+        loadChatScene(event);
     }
+
 
     public void showAuth() {
         regPane.setVisible(false);
@@ -50,6 +58,7 @@ public class AuthAndRegController {
     }
 
     public void processRegButton() {
+        model.registerUser(regEmail.getText(),regNickname.getText(), regPassword.getText(), regPassConfirmation.getText());
         System.out.println("reg");
     }
 

@@ -1,12 +1,14 @@
 package org.nnstu5.container;
 
+import java.io.Serializable;
+
 /**
  * @author Trubkin Nikita
  *         CurrentUser - контейнер для хранения и передачи приватной информации об одном пользователе
  *         Как правило, это авторизационные или регистрационные приватные сведения о текущем пользователе.
  *         Предназначен для хранения и передачи конфиденциальных данных, таких как пароль.
  */
-public class CurrentUser {
+public class CurrentUser implements Serializable {
     private final String nickname;          // публичный никнейм пользователя
     private final String email;             // email, привязанный к аккаунту пользователя
     private final String passHash;          // хэш пароля текущего пользователя
