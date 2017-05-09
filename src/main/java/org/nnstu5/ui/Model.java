@@ -8,26 +8,19 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 /**
- * Controller - реализует модельную часть mvc-паттерна визуального интерфейса чата.
+ * ControllerChat - реализует модельную часть mvc-паттерна визуального интерфейса чата.
  * Содержит методы бизнес-логики. Не работает непосредственно с разметкой view и визуальными элементами
  */
 public class Model {
     private Client client;
-    private final Controller controller;
+    private final ControllerChat controller;
 
-    Model(Controller controller) {
-        try {
-            client = ClientLauncher.start();
-        } catch (Exception exc) {
-            //start client failed
-        }
+    Model(ControllerChat controller) {
+        client = ClientLauncher.getClient();
         client.setModel(this);
         this.controller = controller;
 
         showHistory();
-
-        // подгрузить историю сбщ здесь!
-        // теперь модель конструируется после инициализации разметки
     }
 
     /**
@@ -45,8 +38,8 @@ public class Model {
     }
 
 
-    private void  showHistory () {
-      showMessages(client.getHistory());
+    private void showHistory() {
+        showMessages(client.getHistory());
     }
 
     /**
@@ -60,7 +53,7 @@ public class Model {
 
     private void showMessages(List<Message> messages) {
         for (Message message : messages) {
-           controller.appendMessage(message.getText());
+            controller.appendMessage(message.getText());
         }
     }
 }

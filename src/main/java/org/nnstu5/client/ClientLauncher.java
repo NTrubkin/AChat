@@ -2,7 +2,6 @@ package org.nnstu5.client;
 
 import org.nnstu5.server.ServerRemote;
 
-import javax.naming.OperationNotSupportedException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
@@ -22,18 +21,26 @@ public class ClientLauncher {
 
     /**
      * Запускает клиентскую часть, пытается соединиться с сервером
+     *
      * @return Client
      * @throws Exception RemoteException при ошибке соединения или NotBoundException
      */
     public static Client start() throws Exception {
-        if(registry != null) {
+        if (registry != null || client != null) {
             throw new IllegalStateException("Client already started");
-        }
-        else {
+        } else {
             registry = LocateRegistry.getRegistry("127.0.0.1", 1097);
             ServerRemote serverRemote = (ServerRemote) registry.lookup("Server");
             client = new Client(serverRemote);
             return client;
         }
+    }
+
+    public static Client getClient() {
+        return client;
+    }
+
+    public static boolean isClientStarted() {
+        return (client == null ? false : true);
     }
 }

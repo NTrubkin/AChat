@@ -4,7 +4,6 @@ import org.nnstu5.container.Message;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.List;
 
 // Имя интерфейса ClientInter изменено в соответствии с java naming conventions
 public interface ClientRemote extends Remote {
