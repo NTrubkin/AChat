@@ -25,7 +25,7 @@ public class ClientChatApplication extends Application {
      * @throws Exception
      */
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/chat.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/authorizationAndRegistration.fxml"));
         primaryStage.setTitle("AChat");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

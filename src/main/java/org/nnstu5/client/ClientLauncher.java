@@ -26,7 +26,7 @@ public class ClientLauncher {
      * @throws Exception RemoteException при ошибке соединения или NotBoundException
      */
     public static Client start() throws Exception {
-        if (registry != null) {
+        if (registry != null || client != null) {
             throw new IllegalStateException("Client already started");
         } else {
             registry = LocateRegistry.getRegistry("127.0.0.1", 1097);
@@ -34,5 +34,13 @@ public class ClientLauncher {
             client = new Client(serverRemote);
             return client;
         }
+    }
+
+    public static Client getClient() {
+        return client;
+    }
+
+    public static boolean isClientStarted() {
+        return (client == null ? false : true);
     }
 }
