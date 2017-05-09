@@ -83,4 +83,8 @@ class ConvertManager {
     private User wrapFriend(ArgLine argLine) {
         return new User(argLine, "friend_id", "nickname", "email");
     }
+
+    public User wrapUser(ArgLine argLine) {
+        return new User(argLine, "account_id", "nickname", "email");
+    }
 }

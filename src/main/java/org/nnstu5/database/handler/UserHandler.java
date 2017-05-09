@@ -2,8 +2,12 @@ package org.nnstu5.database.handler;
 
 import org.nnstu5.database.DatabaseController;
 import org.nnstu5.database.holder.ArgHolder;
+import org.nnstu5.database.holder.ArgLine;
+import org.nnstu5.database.holder.ArgMask;
+import org.nnstu5.database.holder.ArgType;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * @author Trubkin Nikita
@@ -16,6 +20,7 @@ public class UserHandler extends DatabasePartHandler {
     private static final String SQL_FIND_USER_BY_EMAIL = "select account_id from account where email = ?";
     private static final String SQL_FIND_USER_BY_PASSHASH = "select account_id from account where (email = ?) & (pass_hash = ?)";
     private static final String SQL_CHECK_USER = "select account_id from account where account_id = ?";
+    private static final String SQL_SELECT_USER = "select account_id, nickname, email from account where (email = ?) & (pass_hash = ?)";
 
     public UserHandler(DatabaseController dbController) {
         super(dbController);
@@ -32,8 +37,8 @@ public class UserHandler extends DatabasePartHandler {
      * @return
      * @throws SQLException
      */
-    public int insertUser(String nickname, String email, String pass_hash) throws SQLException {
-        return insertAndReturnId(SQL_INSERT_USER, new ArgHolder(nickname), new ArgHolder(email), new ArgHolder(pass_hash));
+    public void insertUser(String nickname, String email, String pass_hash) throws SQLException {
+        insert(SQL_INSERT_USER, new ArgHolder(nickname), new ArgHolder(email), new ArgHolder(pass_hash));
     }
 
     /**
@@ -44,7 +49,7 @@ public class UserHandler extends DatabasePartHandler {
      * @throws SQLException
      */
     public int findUser(String email) throws SQLException {
-        return findBySelect(SQL_FIND_USER_BY_EMAIL, "email", new ArgHolder(email));
+        return findBySelect(SQL_FIND_USER_BY_EMAIL, "account_id", new ArgHolder(email));
     }
 
     /**
@@ -68,5 +73,13 @@ public class UserHandler extends DatabasePartHandler {
      */
     public boolean checkUser(int userId) throws SQLException {
         return checkBySelect(SQL_CHECK_USER, new ArgHolder(userId));
+    }
+
+    public List<ArgLine> selectUser(String email, String passHash) throws SQLException{
+        ArgHolder[] argHolders = {new ArgHolder(email), new ArgHolder(passHash)};
+        ArgMask[] resultMasks = {new ArgMask(ArgType.INTEGER, "account_id"),
+                new ArgMask(ArgType.STRING, "nickname"),
+                new ArgMask(ArgType.STRING, "email") };
+        return select(SQL_SELECT_USER, argHolders, resultMasks);
     }
 }
