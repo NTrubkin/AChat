@@ -3,6 +3,7 @@ package org.nnstu5.database;
 //import org.apache.log4j.Logger;
 import org.nnstu5.ChatRules;
 import org.nnstu5.container.Conversation;
+import org.nnstu5.container.CurrentUser;
 import org.nnstu5.container.Message;
 import org.nnstu5.container.User;
 import org.nnstu5.database.handler.ConversationHandler;
@@ -103,46 +104,53 @@ public class ChatDatabase implements AutoCloseable {
     /**
      * Регистрирует нового пользователя в бд
      *
-     * @param nickname имя пользователя
-     * @param email    адрес эл почты, привязанный к пользователю. Уникальный
-     * @param passHash md5 хэш пароля пользователя
-     * @return id зарегистрированного пользователя.
+     * @param user контейнер CurrentUser, который содержит регистрационные данные нового пользователя
      * @throws SQLException
      */
-    public int registerUser(String nickname, String email, String passHash) throws SQLException {
+    public void registerUser(CurrentUser user) throws SQLException {
         // проверка аргументов
-        if (!ChatRules.isValidUserNickname(nickname)
-                || !ChatRules.isValidUserEmail(email)
-                || !ChatRules.isValidUserPassHash(passHash)
-                || userHandler.findUser(email) != -1) {
+        if (!ChatRules.isValidUserNickname(user.getNickname())
+                || !ChatRules.isValidUserEmail(user.getEmail())
+                || !ChatRules.isValidUserPassHash(user.getPassHash())
+                || userHandler.findUser(user.getEmail()) != -1) {
             throw new IllegalArgumentException(ILL_ARGS_MSG);
         }
 
         // вставка нового пользователя с возратом его id
-        int result = userHandler.insertUser(nickname, email, passHash);
+        userHandler.insertUser(user.getNickname(), user.getEmail(), user.getPassHash());
         dbController.commitTransaction();
-        return result;
     }
 
     /**
      * Проверяет, существует ли пользователь с таким email и passHash в бд
      *
-     * @param email    адрес эл почты пользователя
-     * @param passHash md5 хэш пароля пользователя
-     * @return id авторизованного пользователя. -1, если пользователь с такими данными не найден
+     * @param user контейнер CurrentUser с авторизационной информацией
+     * @return контейнер User с информацией об авторизированном пользователе
      * @throws SQLException
      */
-    public int authorizeUser(String email, String passHash) throws SQLException {
+    public User authorizeUser(CurrentUser user) throws SQLException {
         // проверка аргументов
-        if (!ChatRules.isValidUserEmail(email) || !ChatRules.isValidUserPassHash(passHash)) {
+        if (!ChatRules.isValidUserEmail(user.getEmail()) || !ChatRules.isValidUserPassHash(user.getPassHash())) {
             throw new IllegalArgumentException(ILL_ARGS_MSG);
         }
 
         // поиск пользователя по email + passHash с возратом его id
-        int result = userHandler.findUser(email, passHash);
+        List<ArgLine> results = userHandler.selectUser(user.getEmail(), user.getPassHash());
+
+        User result;
+        switch (results.size()) {
+            case 0: result = null; break;
+            case 1: {
+                result = convertManager.wrapUser(results.get(0));
+                break;
+            }
+            default: throw new IllegalStateException("Database contains more than one user with email " + user.getEmail() + ". Fix it");
+        }
         dbController.commitTransaction();
         return result;
     }
+
+
 
     /**
      * Создает новую беседу, добавляет в нее создателя
