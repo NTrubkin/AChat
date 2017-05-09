@@ -37,7 +37,7 @@ class ConvertManager {
      * @return Message
      */
     private Message wrapMessage(ArgLine argLine) {
-        return new Message(argLine, "msg_text", "message_id");
+        return new Message(argLine, "msg_text", "from_id");
     }
 
     /**
