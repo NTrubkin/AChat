@@ -2,7 +2,9 @@ package org.nnstu5.server;
 
 import org.nnstu5.client.Client;
 import org.nnstu5.client.ClientRemote;
+import org.nnstu5.container.CurrentUser;
 import org.nnstu5.container.Message;
+import org.nnstu5.container.User;
 import org.nnstu5.database.ChatDatabase;
 
 import java.rmi.RemoteException;
@@ -34,22 +36,41 @@ public class Server extends UnicastRemoteObject implements ServerRemote {
 
     public void recieveMessage(Message message) throws RemoteException {
         try {
-            db.sendMessage(message.getText(), 1, 1);
+            db.sendMessage(message.getText(), 1, message.getSenderId());
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        for(ClientRemote client: clients) {
+        for (ClientRemote client : clients) {
             client.showMessage(message);
         }
     }
 
 
-    public List<Message> getHistory() throws RemoteException {
+    public List<Message> getHistory(int initiatorId) throws RemoteException {
         try {
-            return db.getMessages(1, 1);
+            return db.getMessages(1, initiatorId);
         } catch (SQLException e) {
             return new ArrayList<>();
+        }
+    }
+
+    public void registerUser(CurrentUser currentUser) {
+        try {
+            db.registerUser(currentUser);
+        } catch (SQLException e) {
+            System.out.println("Database error");
+            e.printStackTrace();
+        }
+    }
+
+    public User authUser (CurrentUser currentUser){
+        try {
+            return db.authorizeUser(currentUser);
+        } catch (SQLException e) {
+            System.out.println("Database error");
+            e.printStackTrace();
+            return null;
         }
     }
 }

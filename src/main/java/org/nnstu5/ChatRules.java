@@ -23,6 +23,8 @@ public class ChatRules {
     private static final int MAX_MESSAGE_TEXT_LENGTH = 200;
     private static final int MIN_MESSAGE_TEXT_LENGTH = 1;
     private static final int MSG_LIMIT = 1000;
+    private static final int MIN_PASSWORD_LENGTH = 6;
+    private static final int MAX_PASSWORD_LENGTH = 30;
 
     /**
      * Приватный конструктор, поскольку нет смысла создавать объект
@@ -81,6 +83,11 @@ public class ChatRules {
     public static boolean isValidMessageText(String text) {
         return (text.length() >= MIN_MESSAGE_TEXT_LENGTH) && (text.length() <= MAX_MESSAGE_TEXT_LENGTH);
     }
+
+    public static boolean isValidPassword(String password) {
+        return (password.length() >= MIN_PASSWORD_LENGTH) && (password.length() <= MAX_PASSWORD_LENGTH);
+    }
+
 
     /**
      * Возвращает предел количества сообщений в выборке из базы

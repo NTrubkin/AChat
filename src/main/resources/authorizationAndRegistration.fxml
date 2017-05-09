@@ -18,12 +18,12 @@
                   </image></ImageView>
               <AnchorPane prefHeight="200.0" prefWidth="200.0">
                   <children>
-                      <TextField focusTraversable="false" layoutX="505.0" layoutY="176.0" prefHeight="25.0" prefWidth="200.0" promptText="E-mail" style="-fx-background-color: 0,0,0,0;">
+                      <TextField fx:id="authEmail" focusTraversable="false" layoutX="505.0" layoutY="176.0" prefHeight="25.0" prefWidth="200.0" promptText="E-mail" style="-fx-background-color: 0,0,0,0;">
                           <font>
                               <Font name="Open Sans Light Italic" size="12.0" />
                           </font>
                       </TextField>
-                      <TextField focusTraversable="false" layoutX="505.0" layoutY="210.0" prefHeight="25.0" prefWidth="172.0" promptText="Пароль" style="-fx-background-color: 0,0,0,0;">
+                      <TextField fx:id="authPass" focusTraversable="false" layoutX="505.0" layoutY="210.0" prefHeight="25.0" prefWidth="172.0" promptText="Пароль" style="-fx-background-color: 0,0,0,0;">
                           <font>
                               <Font name="Open Sans Light Italic" size="12.0" />
                           </font>
@@ -47,7 +47,7 @@
               </AnchorPane>
           </children>
       </AnchorPane>
-      <AnchorPane fx:id="regPane" prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane fx:id="regPane" prefHeight="200.0" prefWidth="200.0" visible="false">
           <children>
               <ImageView fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
                   <image>
@@ -60,22 +60,22 @@
                               <Font name="Open Sans Light" size="18.0" />
                           </font>
                       </Label>
-                      <TextField focusTraversable="false" layoutX="83.0" layoutY="176.0" prefHeight="25.0" prefWidth="200.0" promptText="E-mail" style="-fx-background-color: 0,0,0,0;">
+                      <TextField fx:id="regEmail" focusTraversable="false" layoutX="83.0" layoutY="176.0" prefHeight="25.0" prefWidth="200.0" promptText="E-mail" style="-fx-background-color: 0,0,0,0;">
                           <font>
                               <Font name="Open Sans Light Italic" size="12.0" />
                           </font>
                       </TextField>
-                      <TextField focusTraversable="false" layoutX="83.0" layoutY="210.0" prefHeight="25.0" prefWidth="201.0" promptText="Имя в системе" style="-fx-background-color: 0,0,0,0;">
+                      <TextField fx:id="regNickname" focusTraversable="false" layoutX="83.0" layoutY="210.0" prefHeight="25.0" prefWidth="201.0" promptText="Имя в системе" style="-fx-background-color: 0,0,0,0;">
                           <font>
                               <Font name="Open Sans Light Italic" size="12.0" />
                           </font>
                       </TextField>
-                      <TextField focusTraversable="false" layoutX="83.0" layoutY="244.0" prefHeight="25.0" prefWidth="175.0" promptText="Пароль" style="-fx-background-color: 0,0,0,0;">
+                      <TextField fx:id="regPassword" focusTraversable="false" layoutX="83.0" layoutY="244.0" prefHeight="25.0" prefWidth="175.0" promptText="Пароль" style="-fx-background-color: 0,0,0,0;">
                           <font>
                               <Font name="Open Sans Light Italic" size="12.0" />
                           </font>
                       </TextField>
-                      <TextField focusTraversable="false" layoutX="83.0" layoutY="278.0" prefHeight="25.0" prefWidth="180.0" promptText="Подтрверждение пароля" style="-fx-background-color: 0,0,0,0;">
+                      <TextField fx:id="regPassConfirmation" focusTraversable="false" layoutX="83.0" layoutY="278.0" prefHeight="25.0" prefWidth="180.0" promptText="Подтрверждение пароля" style="-fx-background-color: 0,0,0,0;">
                           <font>
                               <Font name="Open Sans Light Italic" size="12.0" />
                           </font>
