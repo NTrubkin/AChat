@@ -10,7 +10,6 @@ import org.nnstu5.container.User;
  * Created by TrubkinN on 09.05.2017.
  */
 public class AuthAndRegModel {
-    private static final String PAS_HASH = "PASSHASHPASSHASHPASSHASHPASSHASH";
     private Client client;
 
     public void registerUser(String email, String nickname, String password, String passСonfirmation) {
@@ -42,15 +41,15 @@ public class AuthAndRegModel {
             exc.printStackTrace();
         }
 
-        client.registerUser(new CurrentUser(nickname, email, PAS_HASH));
+        client.registerUser(new CurrentUser(nickname, email, password));
     }
 
-    public void authorizeAndLoadChat(String email, String pass) {
+    public void authorizeAndLoadChat(String email, String password) {
         if (!ChatRules.isValidUserEmail(email)) {
             System.out.println("Некорректный email, авторизация прервана");
             return;
         }
-        if (!ChatRules.isValidPassword(pass)) {
+        if (!ChatRules.isValidPassword(password)) {
             System.out.println("Некорректный пароль, авторизация прервана");
             return;
         }
@@ -64,6 +63,6 @@ public class AuthAndRegModel {
             System.out.println("Cannot start client");
             exc.printStackTrace();
         }
-        System.out.println(client.authUser(new CurrentUser(email, PAS_HASH)));
+        System.out.println(client.authUser(new CurrentUser(email, password)));
     }
 }
