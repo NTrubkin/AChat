@@ -11,12 +11,24 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Client extends UnicastRemoteObject implements ClientRemote {
+/**
+ * @author Elizarova Julia
+ *         <p>
+ *         Client обеспечивает взаимосвязь между моделью и сервером.
+ */
+
+public class Client implements ClientRemote {
 
     private ServerRemote server;
     private Model model;
-    private User authorizedUser;
+    private User authorizedUser;    // контейнер с публичной информацией о пользователе.
 
+    /**
+     * Получает ссылку на сервер и сохраняет в переменные экземпляра. Регистрирует клиент на сервере.
+     *
+     * @param server
+     * @throws RemoteException
+     */
     protected Client(ServerRemote server) throws RemoteException {
         this.server = server;
         server.registerClient(this);
@@ -26,9 +38,10 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
      * Отправляет серверу сообщение
      *
      * @param text текст сообщения
+     * @throws RemoteException
      */
     public void sendMessageToServer(String text) throws RemoteException {
-        server.recieveMessage(new Message(text,authorizedUser.getId()));
+        server.recieveMessage(new Message(text, authorizedUser.getId()));
     }
 
     /**
@@ -37,6 +50,7 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
      * @param message текст сообщения
      * @throws RemoteException
      */
+
     public void showMessage(Message message) throws RemoteException {
         model.showMessage(message);
     }
@@ -51,6 +65,11 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
         this.model = model;
     }
 
+    /**
+     * Запрашивает у сервера историю сообщений.
+     *
+     * @return коллекция сообщений беседы в случае успешного получения от сервера, в случае ошибки – пустой список.
+     */
 
     public List<Message> getHistory() {
         try {
@@ -60,6 +79,11 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
         }
     }
 
+    /**
+     * Отправляет серверу контейнер CurrentUser с регистрационными данными.
+     *
+     * @param currentUser контейнер для хранения и передачи приватной информации об одном пользователе.
+     */
     public void registerUser(CurrentUser currentUser) {
         try {
             server.registerUser(currentUser);
@@ -69,6 +93,13 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
         }
     }
 
+    /**
+     * Отправляет серверу контейнер CurrentUser с авторизационными данными.
+     * Получает контейнер User и сохраняет в переменные экземпляра.
+     *
+     * @param user – контейнер currentUser для хранения и передачи приватной информации об одном пользователе
+     * @return autorizedUser – контейнер User, сохраненный в переменной экземпляра. Возращается в AuthAndRegModel.
+     */
     public User authUser(CurrentUser user) {
         try {
             authorizedUser = server.authUser(user);
@@ -80,6 +111,11 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
         }
     }
 
+    /**
+     * Геттер для получения публичной информации о пользователе.
+     *
+     * @return контейнер User
+     */
     public User getAuthorizedUser() {
         return authorizedUser;
     }

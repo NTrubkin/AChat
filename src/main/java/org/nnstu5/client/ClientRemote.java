@@ -5,9 +5,13 @@ import org.nnstu5.container.Message;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-// Имя интерфейса ClientInter изменено в соответствии с java naming conventions
-public interface ClientRemote extends Remote {
+/**
+ * @author Elizarova Julia
+ *         <p>
+ *         ClientRemote – интерфейс клиента, который определяет методы для удаленного использования сервером.
+ */
 
+public interface ClientRemote extends Remote {
 
     void showMessage(Message messages) throws RemoteException;
 }
