@@ -1,6 +1,9 @@
 package org.nnstu5.container;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * @author Trubkin Nikita
@@ -16,22 +19,23 @@ public class CurrentUser implements Serializable {
     /**
      * Конструктор авторизации (никнейм не обязателен)
      * @param email
-     * @param passHash
+     * @param password
      */
-    public CurrentUser(String email, String passHash) {
-        this("", email, passHash);
+    public CurrentUser(String email,  String password) {
+        this("", email, password);
+        generatePassHash(password);
     }
 
     /**
      * Конструктор регистрации (требуется ввести все данные, включая никнейм)
      * @param nickname
      * @param email
-     * @param passHash
+     * @param password
      */
-    public CurrentUser(String nickname, String email, String passHash) {
+    public CurrentUser(String nickname, String email, String password) {
         this.nickname = nickname;
         this.email = email;
-        this.passHash = passHash;
+        this.passHash = generatePassHash(password);
     }
 
     public String getNickname() {
@@ -44,6 +48,19 @@ public class CurrentUser implements Serializable {
 
     public String getPassHash() {
         return passHash;
+    }
+
+    private String generatePassHash (String password){
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(password.getBytes());
+           return new BigInteger(1, md.digest()).toString(16);
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            System.out.println("Wrong algorythm. Passhash will set empty.");
+        return new String("");
+        }
     }
 
     @Override

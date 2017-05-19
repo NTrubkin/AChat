@@ -5,16 +5,18 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 /**
- * ControllerChat - реализует контроллерную часть mvc-паттерна визуального интерфейса чата.
- * Содержит методы-обработчики событий. Без бизнес-логики.
+ * @author Vermenik Maxim
+ *         <p>
+ *         ControllerChat - реализует контроллерную часть mvc-паттерна визуального интерфейса чата.
+ *         Содержит методы-обработчики событий. Без бизнес-логики.
  */
 public class ControllerChat {
     private Model model;
 
     @FXML
-    private TextArea area;
+    private TextArea area;   // поле вывода сообщений
     @FXML
-    private TextField field;
+    private TextField field; // поле ввода сообщений
 
     @FXML
     public void initialize() {
@@ -35,7 +37,7 @@ public class ControllerChat {
     }
 
     /**
-     * Добавляет в историю сообщений новое
+     * Выводит на экран новое сообщение
      *
      * @param text текст нового сообщения
      */

@@ -15,58 +15,81 @@ import java.io.IOException;
 
 /**
  * Created by TrubkinN on 09.05.2017.
+ * Контроллер авторизации и регистрации разметки "/chat.fxml"
  */
 public class AuthAndRegController {
     private static final String CHAT_FXML = "/chat.fxml";
     private AuthAndRegModel model;
 
     @FXML
-    public TextField authEmail;
+    public TextField authEmail;             // поле ввода электронной почты для авторизации
     @FXML
-    public TextField authPass;
+    public TextField authPass;              // поле ввода пароля для авторизации
 
     @FXML
-    public TextField regEmail;
+    public TextField regEmail;              // поле ввода электронной почты для регистрации
     @FXML
-    public TextField regNickname;
+    public TextField regNickname;           // поле ввода никнейма для регистрации
     @FXML
-    public TextField regPassword;
+    public TextField regPassword;           // поле ввода пароля для регистрации
     @FXML
-    public TextField regPassConfirmation;
+    public TextField regPassConfirmation;   // поле ввода подтверждения пароля для регистрации
 
     @FXML
-    public AnchorPane authPane;
+    public AnchorPane authPane;             // окно авторизации
     @FXML
-    public AnchorPane regPane;
+    public AnchorPane regPane;              // окно регистрации
+
 
     @FXML
     public void initialize() {
+        // Инициализация авторизационной и регистрационной модели сразу после создания этого контроллера
+        // и полей разметки
+
         model = new AuthAndRegModel();
         showAuth();
     }
 
+    /**
+     * Реагирует на нажатие кнопки авторизации
+     *
+     * @param event
+     */
     public void processAuthButton(ActionEvent event) {
         System.out.println("auth");
         model.authorizeAndLoadChat(authEmail.getText(), authPass.getText());
         loadChatScene(event);
     }
 
-
+    /**
+     * Отображает панель авторизации. Скрывает панель регистрации.
+     */
     public void showAuth() {
         regPane.setVisible(false);
         authPane.setVisible(true);
     }
 
+    /**
+     * Отправляет модели регистрационные данные.
+     */
     public void processRegButton() {
-        model.registerUser(regEmail.getText(),regNickname.getText(), regPassword.getText(), regPassConfirmation.getText());
+        model.registerUser(regEmail.getText(), regNickname.getText(), regPassword.getText(), regPassConfirmation.getText());
         System.out.println("reg");
     }
 
+    /**
+     * Отображает панель регистрации. Скрывает панель авторизации.
+     */
     public void showReg() {
         authPane.setVisible(false);
         regPane.setVisible(true);
     }
 
+    /**
+     * Загружает разметку для чата.
+     *
+     * @param event
+     */
     private void loadChatScene(ActionEvent event) {
         try {
             Parent parent = FXMLLoader.load(getClass().getResource(CHAT_FXML));
@@ -75,8 +98,7 @@ public class AuthAndRegController {
             stage.hide();
             stage.setScene(scene);
             stage.show();
-        }
-        catch (IOException exc) {
+        } catch (IOException exc) {
             System.out.println(exc);
         }
     }

@@ -2,11 +2,15 @@ package org.nnstu5.client;
 
 import org.nnstu5.server.ServerRemote;
 
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 /**
- * ClientLauncher управляет клиентской частью rmi соединения
+ * @author Elizarova Julia
+ *         <p>
+ *         ClientLauncher управляет клиентской частью rmi соединения
  */
 public class ClientLauncher {
     private static Registry registry;
@@ -36,11 +40,22 @@ public class ClientLauncher {
         }
     }
 
+    /**
+     * Геттер для доступа к клиенту из модели.
+     *
+     * @return клиент
+     */
     public static Client getClient() {
         return client;
     }
 
+    /**
+     * Проверяет запущен ли клиент.
+     *
+     * @return true – запущен клиент, false – не запущен.
+     */
     public static boolean isClientStarted() {
         return (client == null ? false : true);
     }
 }
+

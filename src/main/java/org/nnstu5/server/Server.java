@@ -13,15 +13,29 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Server extends UnicastRemoteObject implements ServerRemote {
+/**
+ * @author Andrey Kuznetsov
+ *         <p>
+ *         Обеспечивает взаимосвязь между клиентом и базой данных.
+ */
+
+public class Server implements ServerRemote {
 
     private volatile List<ClientRemote> clients;
-    private ChatDatabase db = ChatDatabase.getInstance();
+    private ChatDatabase db = ChatDatabase.getInstance(); // инициализация базы данных
 
+    /**
+     * конструктор для создания коллекции, которая будет хранить ссылки на клиенты.
+     */
     protected Server() throws RemoteException {
         clients = new ArrayList<>();
     }
 
+    /**
+     * регистрирует клиентов: добавляет в List<ClientRemote> ссылки на клиенты.
+     *
+     * @throws RemoteException
+     */
     @Override
 
     public synchronized void registerClient(ClientRemote client) throws RemoteException {
@@ -46,6 +60,13 @@ public class Server extends UnicastRemoteObject implements ServerRemote {
         }
     }
 
+    /**
+     * Получает из базы данных коллецию сообщений беседы.
+     *
+     * @param initiatorId участники беседы
+     * @return List<Message> коллецию сообщений беседы в случае успеха, иначе – пустой список.
+     * @throws RemoteException
+     */
 
     public List<Message> getHistory(int initiatorId) throws RemoteException {
         try {
@@ -55,6 +76,11 @@ public class Server extends UnicastRemoteObject implements ServerRemote {
         }
     }
 
+    /**
+     * Добавляет в базу данных нового пользователя
+     *
+     * @param currentUser контейнер с регистрационными приватными данными пользователя.
+     */
     public void registerUser(CurrentUser currentUser) {
         try {
             db.registerUser(currentUser);
@@ -64,7 +90,12 @@ public class Server extends UnicastRemoteObject implements ServerRemote {
         }
     }
 
-    public User authUser (CurrentUser currentUser){
+    /**
+     * Запрашивает у базы данных информацию об авторизованном пользователе
+     *
+     * @return контейнер User с публичной информацией в случае успеха, иначе – пустую ссылку.
+     */
+    public User authUser(CurrentUser currentUser) {
         try {
             return db.authorizeUser(currentUser);
         } catch (SQLException e) {
