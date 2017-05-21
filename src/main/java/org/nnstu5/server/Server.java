@@ -49,9 +49,9 @@ public class Server implements ServerRemote {
      * @throws RemoteException
      */
 
-    public void recieveMessage(Message message) throws RemoteException {
+    public void recieveMessage(Message message, int conversId) throws RemoteException {
         try {
-            db.sendMessage(message.getText(), 1, message.getSenderId());
+            db.sendMessage(message.getText(), conversId, message.getSenderId());
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -69,9 +69,9 @@ public class Server implements ServerRemote {
      * @throws RemoteException
      */
 
-    public List<Message> getHistory(int initiatorId) throws RemoteException {
+    public List<Message> getHistory(int conversId, int initiatorId) throws RemoteException {
         try {
-            return db.getMessages(1, initiatorId);
+            return db.getMessages(conversId, initiatorId);
         } catch (SQLException e) {
             return new ArrayList<>();
         }

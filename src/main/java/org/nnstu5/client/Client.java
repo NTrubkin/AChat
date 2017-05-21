@@ -25,6 +25,7 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
     private Model model;
     private User authorizedUser;    // контейнер с публичной информацией о пользователе.
     private ArrayList<Conversation> conversations = new ArrayList<>();
+    private Conversation currentConvers;
 
     /**
      * Получает ссылку на сервер и сохраняет в переменные экземпляра. Регистрирует клиент на сервере.
@@ -54,7 +55,7 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
      * @throws RemoteException
      */
     public void sendMessageToServer(String text) throws RemoteException {
-        server.recieveMessage(new Message(text, authorizedUser.getId()));
+        server.recieveMessage(new Message(text, authorizedUser.getId()), currentConvers.getId());
     }
 
     /**
@@ -89,9 +90,9 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
      * @return коллекция сообщений беседы в случае успешного получения от сервера, в случае ошибки – пустой список.
      */
 
-    public List<Message> getHistory() {
+    public List<Message> loadCurrentConversHistory() {
         try {
-            return server.getHistory(authorizedUser.getId());
+            return server.getHistory(currentConvers.getId(),authorizedUser.getId());
         } catch (RemoteException e) {
             return new ArrayList<>();
         }
@@ -137,5 +138,23 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
     public User getAuthorizedUser() {
         return authorizedUser;
     }
+
+    public Conversation getCurrentConvers() {
+        return currentConvers;
+    }
+
+    public void setCurrentConvers(int id) {
+        for (Conversation conversation : conversations){
+            if(conversation.getId()==id){
+                currentConvers=conversation;
+                return;
+            }
+        }
+    }
+
+    public ArrayList<Conversation> getConversations() {
+        return conversations;
+    }
 }
+
 
