@@ -2,9 +2,11 @@ package org.nnstu5.ui;
 
 import org.nnstu5.client.Client;
 import org.nnstu5.client.ClientLauncher;
+import org.nnstu5.container.Conversation;
 import org.nnstu5.container.Message;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,7 +32,14 @@ public class Model {
         client.setModel(this);
         this.controller = controller;
 
-        showHistory();
+        client.loadConversations();
+        if (client.getConversations().size() > 0) {
+            setConvers((client.getConversations()).get(0).getId());
+        }
+    }
+    public void setConvers(int id){
+        client.setCurrentConvers(id);
+        showMessages(client.loadCurrentConversHistory());
     }
 
     /**
@@ -44,14 +53,6 @@ public class Model {
         } catch (RemoteException exc) {
             // sending message failed
         }
-    }
-
-    /**
-     * Запрос истории сообщений у клиента
-     * получает от клиента List<Message> и отправляет в showMessages().
-     */
-    private void showHistory() {
-        showMessages(client.getHistory());
     }
 
     /**
@@ -69,8 +70,12 @@ public class Model {
      * @param messages список со множеством сообщений.
      */
     private void showMessages(List<Message> messages) {
+        controller.clearHistory();
         for (Message message : messages) {
             showMessage(message);
         }
+    }
+    public void showConversations (ArrayList<Conversation> conversations){
+        controller.showConversations(conversations);
     }
 }
