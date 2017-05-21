@@ -3,6 +3,12 @@ package org.nnstu5.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import org.nnstu5.container.Conversation;
+
+import java.util.ArrayList;
+
+import javafx.scene.control.Button;
 
 /**
  * @author Vermenik Maxim
@@ -17,6 +23,8 @@ public class ControllerChat {
     private TextArea area;   // поле вывода сообщений
     @FXML
     private TextField field; // поле ввода сообщений
+    @FXML
+    private VBox conversationsBox;
 
     @FXML
     public void initialize() {
@@ -44,5 +52,14 @@ public class ControllerChat {
     void appendMessage(String text) {
         area.appendText(text);
         area.appendText("\n");
+    }
+
+    @FXML
+    void showConversations(ArrayList<Conversation> conversations) {
+        conversationsBox.getChildren().clear();
+        for (Conversation conversation : conversations) {
+            Button b = new Button(conversation.getName());
+            conversationsBox.getChildren().add(b);
+        }
     }
 }

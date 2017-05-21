@@ -2,9 +2,11 @@ package org.nnstu5.ui;
 
 import org.nnstu5.client.Client;
 import org.nnstu5.client.ClientLauncher;
+import org.nnstu5.container.Conversation;
 import org.nnstu5.container.Message;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +33,7 @@ public class Model {
         this.controller = controller;
 
         showHistory();
+        client.loadConversations();
     }
 
     /**
@@ -72,5 +75,8 @@ public class Model {
         for (Message message : messages) {
             showMessage(message);
         }
+    }
+    public void showConversations (ArrayList<Conversation> conversations){
+        controller.showConversations(conversations);
     }
 }

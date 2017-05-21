@@ -2,6 +2,7 @@ package org.nnstu5.server;
 
 import org.nnstu5.client.Client;
 import org.nnstu5.client.ClientRemote;
+import org.nnstu5.container.Conversation;
 import org.nnstu5.container.CurrentUser;
 import org.nnstu5.container.Message;
 import org.nnstu5.container.User;
@@ -102,6 +103,15 @@ public class Server implements ServerRemote {
             System.out.println("Database error");
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public List<Conversation> getConversations(int userId) {
+        try {
+            return db.getUserConversations(userId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
         }
     }
 }
