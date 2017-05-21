@@ -3,9 +3,11 @@ package org.nnstu5.client;
 import org.nnstu5.server.ServerRemote;
 
 import java.rmi.NotBoundException;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  * @author Elizarova Julia
@@ -33,18 +35,28 @@ public class ClientLauncher {
         if (registry != null || client != null) {
             throw new IllegalStateException("Client already started");
         } else {
-            registry = LocateRegistry.getRegistry("127.0.0.1", 1097);
-            ServerRemote serverRemote = (ServerRemote) registry.lookup("Server");
-            client = new Client(serverRemote);
-            return client;
+            try {
+
+                registry = LocateRegistry.getRegistry("localhost", 1090);
+                ServerRemote serverRemote = (ServerRemote) registry.lookup("Server");
+                client = new Client(serverRemote);
+
+            } catch (Exception e) {
+                System.err.println("Client exception: " + e.toString());
+                e.printStackTrace();
+
+            }
         }
+        return client;
     }
+
 
     /**
      * Геттер для доступа к клиенту из модели.
      *
      * @return клиент
      */
+
     public static Client getClient() {
         return client;
     }
