@@ -29,32 +29,35 @@ public class ServerLauncher {
      * @param args
      */
     public static void main(String[] args) {
-        try {
-            registry = LocateRegistry.createRegistry(1097);
-            Remote serverRemote = UnicastRemoteObject.exportObject(new Server(), 0);
-
-            registry.rebind("Server", serverRemote);
-            System.out.println("Server is ready");
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        Scanner sc = new Scanner(System.in);
-        String string = sc.nextLine();
-        if (string.equals("stop")) {
             try {
-                registry.unbind("Server");
-                System.out.println("Server disconnected");
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            } catch (NotBoundException e) {
-                e.printStackTrace();
+                Server obj = new Server();
+                registry = LocateRegistry.createRegistry(1090);
+                ServerRemote stub = (ServerRemote) UnicastRemoteObject.exportObject(obj, 0);
+
+                registry.bind("Server", stub);
+                System.out.println("Server is ready");
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
-            try {
-                db.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            while (true){}
+            /*Scanner sc = new Scanner(System.in);
+            String string = sc.nextLine();
+            if (string.equals("stop")) {
+                try {
+                    registry.unbind("Server");
+                    System.out.println("Server disconnected");
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                } catch (NotBoundException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    db.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }*/
         }
     }
-}
+
