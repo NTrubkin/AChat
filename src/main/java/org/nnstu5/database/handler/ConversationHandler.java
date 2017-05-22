@@ -1,6 +1,7 @@
 package org.nnstu5.database.handler;
 
 import org.nnstu5.database.DatabaseController;
+import org.nnstu5.database.Preparatory;
 import org.nnstu5.database.holder.ArgHolder;
 import org.nnstu5.database.holder.ArgLine;
 import org.nnstu5.database.holder.ArgMask;
@@ -30,8 +31,8 @@ public class ConversationHandler extends DatabasePartHandler {
     private static final String SQL_CHECK_CREATOR = "select convers_id from conversation where (convers_id = ?) & (creator_id = ?);";
     private static final String SQL_CHECK_USER = "select convers_id from convers_member where (convers_id = ?) & (member_id = ?);";
 
-    public ConversationHandler(DatabaseController dbController) {
-        super(dbController);
+    public ConversationHandler(Preparatory statementCreator) {
+        super(statementCreator);
     }
 
     /**

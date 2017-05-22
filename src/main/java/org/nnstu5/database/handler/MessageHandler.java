@@ -1,6 +1,7 @@
 package org.nnstu5.database.handler;
 
 import org.nnstu5.database.DatabaseController;
+import org.nnstu5.database.Preparatory;
 import org.nnstu5.database.holder.ArgHolder;
 import org.nnstu5.database.holder.ArgLine;
 import org.nnstu5.database.holder.ArgMask;
@@ -23,8 +24,8 @@ public class MessageHandler extends DatabasePartHandler {
             "where convers_id = ?";
     private static final String SQL_DELETE_ALL_MSGS = "delete from message where (convers_id = ?);";
 
-    public MessageHandler(DatabaseController dbController) {
-        super(dbController);
+    public MessageHandler(Preparatory statementCreator) {
+        super(statementCreator);
     }
 
     /**

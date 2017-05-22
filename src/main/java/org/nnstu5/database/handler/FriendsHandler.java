@@ -1,6 +1,7 @@
 package org.nnstu5.database.handler;
 
 import org.nnstu5.database.DatabaseController;
+import org.nnstu5.database.Preparatory;
 import org.nnstu5.database.holder.ArgHolder;
 import org.nnstu5.database.holder.ArgLine;
 import org.nnstu5.database.holder.ArgMask;
@@ -26,8 +27,8 @@ public class FriendsHandler extends DatabasePartHandler {
             "    on f.friend_id == a.account_id;";
     private static final String SQL_CHECK_FRIENDS = "select first_friend_id from friends_pair where ((first_friend_id = ?) & (second_friend_id = ?)) | ((first_friend_id = ?) & (second_friend_id = ?));";
 
-    public FriendsHandler(DatabaseController dbController) {
-        super(dbController);
+    public FriendsHandler(Preparatory statementCreator) {
+        super(statementCreator);
     }
 
     /**

@@ -3,6 +3,7 @@ package org.nnstu5.database.handler;
 
 //import org.apache.log4j.Logger;
 import org.nnstu5.database.DatabaseController;
+import org.nnstu5.database.Preparatory;
 import org.nnstu5.database.holder.ArgHolder;
 import org.nnstu5.database.holder.ArgLine;
 import org.nnstu5.database.holder.ArgMask;
@@ -24,7 +25,7 @@ import java.util.List;
  *         Транзакции используются на более высоком уровне в компоновщике этих простейших запросов
  */
 public abstract class DatabasePartHandler {
-    protected DatabaseController dbController;
+    protected Preparatory statementCreator;
 
     //private static final Logger log = Logger.getLogger(DatabasePartHandler.class);
     private static final String SQL_EXC_MSG = "Something wrong with SQL";
@@ -32,10 +33,10 @@ public abstract class DatabasePartHandler {
     /**
      * Стандартный конструктор
      *
-     * @param dbController открытый контроллер доступа к бд
+     * @param statementCreator сборщик PrepareStatement
      */
-    public DatabasePartHandler(DatabaseController dbController) {
-        this.dbController = dbController;
+    public DatabasePartHandler(Preparatory statementCreator) {
+        this.statementCreator = statementCreator;
     }
 
     /**
@@ -48,7 +49,7 @@ public abstract class DatabasePartHandler {
      */
     private void insertOrDelete(String sqlQuery, ArgHolder... sqlArgs) throws SQLException {
         // реализация insert() ничем не отчичается от delete().
-        PreparedStatement statement = dbController.createPreparedStatement(sqlQuery);
+        PreparedStatement statement = statementCreator.createPreparedStatement(sqlQuery);
         setStatementArgs(statement, sqlArgs);
         statement.executeUpdate();
 
@@ -78,7 +79,7 @@ public abstract class DatabasePartHandler {
      * @throws SQLException
      */
     protected int insertAndReturnId(String sqlInsert, ArgHolder... sqlArgs) throws SQLException {
-        PreparedStatement statement = dbController.createPreparedStatement(sqlInsert);
+        PreparedStatement statement = statementCreator.createPreparedStatement(sqlInsert);
         setStatementArgs(statement, sqlArgs);
         statement.executeUpdate();
 
@@ -110,7 +111,7 @@ public abstract class DatabasePartHandler {
      * @throws SQLException
      */
     protected boolean checkBySelect(String sqlSelect, ArgHolder... sqlArgs) throws SQLException {
-        PreparedStatement statement = dbController.createPreparedStatement(sqlSelect);
+        PreparedStatement statement = statementCreator.createPreparedStatement(sqlSelect);
         setStatementArgs(statement, sqlArgs);
         ResultSet resultSet = statement.executeQuery();
 
@@ -130,7 +131,7 @@ public abstract class DatabasePartHandler {
      * @throws SQLException
      */
     protected int findBySelect(String sqlSelect, String resultColumnLabel, ArgHolder... sqlArgs) throws SQLException {
-        PreparedStatement statement = dbController.createPreparedStatement(sqlSelect);
+        PreparedStatement statement = statementCreator.createPreparedStatement(sqlSelect);
         setStatementArgs(statement, sqlArgs);
         ResultSet result = statement.executeQuery();
 
@@ -155,7 +156,7 @@ public abstract class DatabasePartHandler {
      * @throws SQLException
      */
     protected List<ArgLine> select(String sqlSelect, ArgHolder[] sqlArgs, ArgMask[] resultMasks) throws SQLException {
-        PreparedStatement statement = dbController.createPreparedStatement(sqlSelect);
+        PreparedStatement statement = statementCreator.createPreparedStatement(sqlSelect);
         setStatementArgs(statement, sqlArgs);
         ResultSet resultSet = statement.executeQuery();
 
