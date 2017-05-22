@@ -1,5 +1,7 @@
 package org.nnstu5;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,7 +41,7 @@ public class ChatRules {
      * @return true - если корректен, false - если есть проблемы
      */
     public static boolean isValidUserNickname(String nickname) {
-        return (nickname.length() <= MAX_NICK_LENGTH) && (nickname.length() >= MIN_NICK_LENGTH);
+        return (StringUtils.isNotEmpty(nickname)) && (nickname.length() <= MAX_NICK_LENGTH) && (nickname.length() >= MIN_NICK_LENGTH);
     }
 
     /**
@@ -49,7 +51,7 @@ public class ChatRules {
      * @return true - если корректен, false - если есть проблемы
      */
     public static boolean isValidConversationName(String name) {
-        return (name.length() <= MAX_CONVERS_NAME_LENGTH) && (name.length() >= MIN_CONVERS_NAME_LENGTH);
+        return (StringUtils.isNotEmpty(name)) &&(name.length() <= MAX_CONVERS_NAME_LENGTH) && (name.length() >= MIN_CONVERS_NAME_LENGTH);
     }
 
     /**
@@ -61,7 +63,7 @@ public class ChatRules {
      */
     public static boolean isValidUserEmail(String email) {
         Matcher matcher = pattern.matcher(email);
-        return (email.length() <= MAX_EMAIL_LENGTH) && (matcher.matches());
+        return (StringUtils.isNotEmpty(email)) &&(email.length() <= MAX_EMAIL_LENGTH) && (matcher.matches());
     }
 
     /**
@@ -71,7 +73,7 @@ public class ChatRules {
      * @return true - если корректен, false - если есть проблемы
      */
     public static boolean isValidUserPassHash(String passHash) {
-        return (passHash.length() == PASS_HASH_LENGTH);
+        return (StringUtils.isNotEmpty(passHash)) &&(passHash.length() == PASS_HASH_LENGTH);
     }
 
     /**
@@ -81,13 +83,12 @@ public class ChatRules {
      * @return true - если корректен, false - если есть проблемы
      */
     public static boolean isValidMessageText(String text) {
-        return (text.length() >= MIN_MESSAGE_TEXT_LENGTH) && (text.length() <= MAX_MESSAGE_TEXT_LENGTH);
+        return (StringUtils.isNotEmpty(text)) &&(text.length() >= MIN_MESSAGE_TEXT_LENGTH) && (text.length() <= MAX_MESSAGE_TEXT_LENGTH);
     }
 
     public static boolean isValidPassword(String password) {
-        return (password.length() >= MIN_PASSWORD_LENGTH) && (password.length() <= MAX_PASSWORD_LENGTH);
+        return (StringUtils.isNotEmpty(password)) &&(password.length() >= MIN_PASSWORD_LENGTH) && (password.length() <= MAX_PASSWORD_LENGTH);
     }
-
 
     /**
      * Возвращает предел количества сообщений в выборке из базы
