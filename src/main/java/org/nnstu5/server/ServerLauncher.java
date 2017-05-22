@@ -3,10 +3,7 @@ package org.nnstu5.server;
 import org.nnstu5.ChatRules;
 import org.nnstu5.database.ChatDatabase;
 
-import java.rmi.NotBoundException;
-import java.rmi.Remote;
-import java.rmi.RemoteException;
-import java.rmi.ServerException;
+import java.rmi.*;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
@@ -32,11 +29,7 @@ public class ServerLauncher {
      */
     public static void main(String[] args) {
             try {
-                Server obj = new Server();
-                registry = LocateRegistry.createRegistry(ChatRules.RMI_PORT);
-                ServerRemote stub = (ServerRemote) UnicastRemoteObject.exportObject(obj, 0);
-
-                registry.bind(ChatRules.RMI_BIND_KEY, stub);
+                open();
                 System.out.println("Server is ready.");
 
             } catch (Exception ex) {
@@ -50,6 +43,14 @@ public class ServerLauncher {
             }
 
             close();
+        }
+
+        private static void open() throws RemoteException, AlreadyBoundException {
+            Server obj = new Server();
+            registry = LocateRegistry.createRegistry(ChatRules.RMI_PORT);
+            ServerRemote stub = (ServerRemote) UnicastRemoteObject.exportObject(obj, 0);
+
+            registry.bind(ChatRules.RMI_BIND_KEY, stub);
         }
 
         private static void close() {
@@ -66,6 +67,8 @@ public class ServerLauncher {
                 System.out.println("Database closing failed.");
                 e.printStackTrace();
             }
+
+            System.exit(0);
         }
     }
 
