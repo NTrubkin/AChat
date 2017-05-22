@@ -1,5 +1,9 @@
 package org.nnstu5.client;
 
+import org.nnstu5.ChatRules;
+import org.nnstu5.database.ChatDatabase;
+import org.nnstu5.server.Server;
+import org.nnstu5.server.ServerLauncher;
 import org.nnstu5.server.ServerRemote;
 
 import java.rmi.NotBoundException;
@@ -37,8 +41,8 @@ public class ClientLauncher {
         } else {
             try {
 
-                registry = LocateRegistry.getRegistry("localhost", 1090);
-                ServerRemote serverRemote = (ServerRemote) registry.lookup("Server");
+                registry = LocateRegistry.getRegistry("localhost", ChatRules.RMI_PORT);
+                ServerRemote serverRemote = (ServerRemote) registry.lookup(ChatRules.RMI_BIND_KEY);
                 client = new Client(serverRemote);
 
             } catch (Exception e) {
@@ -49,7 +53,6 @@ public class ClientLauncher {
         }
         return client;
     }
-
 
     /**
      * Геттер для доступа к клиенту из модели.
@@ -67,7 +70,7 @@ public class ClientLauncher {
      * @return true – запущен клиент, false – не запущен.
      */
     public static boolean isClientStarted() {
-        return (client == null ? false : true);
+        return (client != null);
     }
 }
 

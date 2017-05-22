@@ -1,8 +1,10 @@
 package org.nnstu5.container;
 
+import org.nnstu5.ChatRules;
 import org.nnstu5.database.holder.ArgLine;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @author Trubkin Nikita
@@ -30,6 +32,9 @@ public class Conversation implements Serializable {
      * @param creatorId
      */
     public Conversation(int id, String name, int creatorId) {
+        if(!ChatRules.isValidConversationName(name)) {
+            throw new IllegalArgumentException("Conversataion name is invalid");
+        }
         this.id = id;
         this.name = name;
         this.creatorId = creatorId;

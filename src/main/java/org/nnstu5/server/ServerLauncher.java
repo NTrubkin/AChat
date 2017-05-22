@@ -1,11 +1,9 @@
 package org.nnstu5.server;
 
+import org.nnstu5.ChatRules;
 import org.nnstu5.database.ChatDatabase;
 
-import java.rmi.NotBoundException;
-import java.rmi.Remote;
-import java.rmi.RemoteException;
-import java.rmi.ServerException;
+import java.rmi.*;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
@@ -19,9 +17,10 @@ import java.util.Scanner;
  *         Временная точка входа серверного приложения
  */
 public class ServerLauncher {
-    private static ChatDatabase db = ChatDatabase.getInstance();  // доступ к базе данных.
-    static Registry registry;
+    private static final String EXIT_CMD = "stop";
 
+    private static Registry registry;
+    private static ChatDatabase db = ChatDatabase.getInstance();
     /**
      * регистрация сервера в реестре RMI.
      * Остановка сервера и закрытие базы данных через консольный ввод "stop".
@@ -30,34 +29,46 @@ public class ServerLauncher {
      */
     public static void main(String[] args) {
             try {
-                Server obj = new Server();
-                registry = LocateRegistry.createRegistry(1090);
-                ServerRemote stub = (ServerRemote) UnicastRemoteObject.exportObject(obj, 0);
-
-                registry.bind("Server", stub);
-                System.out.println("Server is ready");
+                open();
+                System.out.println("Server is ready.");
 
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-            while (true){}
-            /*Scanner sc = new Scanner(System.in);
-            String string = sc.nextLine();
-            if (string.equals("stop")) {
-                try {
-                    registry.unbind("Server");
-                    System.out.println("Server disconnected");
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                } catch (NotBoundException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    db.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }*/
+
+            while (true) {
+                Scanner sc = new Scanner(System.in);
+                String cmd = sc.nextLine();
+                if(cmd.equals(EXIT_CMD)) { break; }
+            }
+
+            close();
+        }
+
+        private static void open() throws RemoteException, AlreadyBoundException {
+            Server obj = new Server();
+            registry = LocateRegistry.createRegistry(ChatRules.RMI_PORT);
+            ServerRemote stub = (ServerRemote) UnicastRemoteObject.exportObject(obj, 0);
+
+            registry.bind(ChatRules.RMI_BIND_KEY, stub);
+        }
+
+        private static void close() {
+            try {
+                registry.unbind(ChatRules.RMI_BIND_KEY);
+                System.out.println("Server disconnected.");
+            } catch (RemoteException | NotBoundException e) {
+                System.out.println("Server disconnecting failed.");
+                e.printStackTrace();
+            }
+            try {
+                db.close();
+            } catch (SQLException e) {
+                System.out.println("Database closing failed.");
+                e.printStackTrace();
+            }
+
+            System.exit(0);
         }
     }
 

@@ -1,8 +1,10 @@
 package org.nnstu5.container;
 
+import org.nnstu5.ChatRules;
 import org.nnstu5.database.holder.ArgLine;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @author Trubkin Nikita
@@ -22,6 +24,12 @@ public class User implements Serializable {
      * @param email
      */
     public User(int id, String nickname, String email) {
+        if(!ChatRules.isValidUserNickname(nickname)) {
+            throw new IllegalArgumentException("User nickname is invalid");
+        }
+        if(!ChatRules.isValidUserEmail(email)) {
+            throw new IllegalArgumentException("Email is invalid");
+        }
         this.id = id;
         this.nickname = nickname;
         this.email = email;

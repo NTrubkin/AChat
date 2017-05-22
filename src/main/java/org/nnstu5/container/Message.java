@@ -1,8 +1,10 @@
 package org.nnstu5.container;
 
+import org.nnstu5.ChatRules;
 import org.nnstu5.database.holder.ArgLine;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @author Trubkin Nikita
@@ -13,6 +15,9 @@ public class Message implements Serializable {
     private final int senderId;         // отправитель сбщ
 
     public Message(String text, int senderId) {
+        if(!ChatRules.isValidMessageText(text)) {
+            throw new IllegalArgumentException("Text is invalid");
+        }
         this.senderId = senderId;
         this.text = text;
     }

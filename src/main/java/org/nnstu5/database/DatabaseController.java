@@ -59,7 +59,7 @@ public class DatabaseController implements AutoCloseable {
     public void close() throws SQLException {
         connection.close();
         //log.info("ChatDatabase closed.");
-        System.out.println("ChatDatabase closed.");
+        System.out.println("DatabaseController closed.");
     }
 
     /**
