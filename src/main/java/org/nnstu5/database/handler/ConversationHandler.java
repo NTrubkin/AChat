@@ -20,10 +20,9 @@ public class ConversationHandler extends DatabasePartHandler {
     private static final String SQL_INSERT_CONV = "insert into conversation (name, creator_id) values (?, ?);";
     private static final String SQL_INSERT_USER = "insert into convers_member (convers_id, member_id) values (?, ?);";
     private static final String SQL_DELETE_MEMBER = "delete from convers_member where (convers_id = ?) & (member_id = ?);";
-    private static final String SQL_SELECT_USERS = "select c.convers_id, c.name, c.creator_id, a.nickname creator_name, a.email creator_email\n" +
+    private static final String SQL_SELECT_USERS = "select c.convers_id, c.name, c.creator_id\n" +
             "                from conversation c inner join convers_member cm\n" +
             "                    on c.convers_id == cm.convers_id\n" +
-            "                inner join account a on c.creator_id = a.account_id\n" +
             "                where cm.member_id = ?;";
     private static final String SQL_CHECK_CONV = "select convers_id from conversation where convers_id = ?";
     private static final String SQL_DELETE_ALL_MEMBERS = "delete from convers_member where (convers_id = ?);";
@@ -80,9 +79,7 @@ public class ConversationHandler extends DatabasePartHandler {
         ArgHolder[] argHolders = {new ArgHolder(userId)};
         ArgMask[] resultMasks = {new ArgMask(ArgType.INTEGER, "convers_id"),
                 new ArgMask(ArgType.STRING, "name"),
-                new ArgMask(ArgType.INTEGER, "creator_id"),
-                new ArgMask(ArgType.STRING, "creator_name"),
-                new ArgMask(ArgType.STRING, "creator_email")};
+                new ArgMask(ArgType.INTEGER, "creator_id")};
         return select(SQL_SELECT_USERS, argHolders, resultMasks);
     }
 
