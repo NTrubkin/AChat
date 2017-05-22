@@ -13,7 +13,7 @@ import java.sql.*;
  *         Закрывается вручную вызовом метода close()
  *         По умолчанию autocommit false. Каждая комманда должна заверщаться методом commitTransaction()
  */
-public class DatabaseController implements AutoCloseable {
+public class DatabaseController implements AutoCloseable, Preparatory {
     private Connection connection = null;
     //private static final Logger log = Logger.getLogger(DatabaseController.class);
 

@@ -1,6 +1,7 @@
 package org.nnstu5.database.handler;
 
 import org.nnstu5.database.DatabaseController;
+import org.nnstu5.database.Preparatory;
 import org.nnstu5.database.holder.ArgHolder;
 import org.nnstu5.database.holder.ArgLine;
 import org.nnstu5.database.holder.ArgMask;
@@ -22,8 +23,8 @@ public class UserHandler extends DatabasePartHandler {
     private static final String SQL_CHECK_USER = "select account_id from account where account_id = ?";
     private static final String SQL_SELECT_USER = "select account_id, nickname, email from account where (email = ?) & (pass_hash = ?)";
 
-    public UserHandler(DatabaseController dbController) {
-        super(dbController);
+    public UserHandler(Preparatory statementCreator) {
+        super(statementCreator);
     }
 
     // returns generated key

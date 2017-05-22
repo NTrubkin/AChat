@@ -1,6 +1,7 @@
 package org.nnstu5.database.handler;
 
 import org.nnstu5.database.DatabaseController;
+import org.nnstu5.database.Preparatory;
 import org.nnstu5.database.holder.ArgHolder;
 import org.nnstu5.database.holder.ArgLine;
 import org.nnstu5.database.holder.ArgMask;
@@ -17,14 +18,11 @@ import java.util.List;
  */
 public class MessageHandler extends DatabasePartHandler {
     private static final String SQL_INSERT_MSG = "insert into message (msg_text, from_id, convers_id) values (?, ?, ?);";
-    private static final String SQL_SELECT_MSGS = "select m.message_id, m.msg_text, m.from_id, a.nickname, a.email\n" +
-            "from message m inner join account a\n" +
-            "    on m.from_id = a.account_id\n" +
-            "where convers_id = ?";
+    private static final String SQL_SELECT_MSGS = "select msg_text, from_id from message where convers_id = ?";
     private static final String SQL_DELETE_ALL_MSGS = "delete from message where (convers_id = ?);";
 
-    public MessageHandler(DatabaseController dbController) {
-        super(dbController);
+    public MessageHandler(Preparatory statementCreator) {
+        super(statementCreator);
     }
 
     /**
@@ -48,11 +46,8 @@ public class MessageHandler extends DatabasePartHandler {
      */
     public List<ArgLine> selectMessages(int conversId) throws SQLException {
         ArgHolder[] argHolders = {new ArgHolder(conversId)};
-        ArgMask[] resultMasks = {new ArgMask(ArgType.INTEGER, "message_id"),
-                new ArgMask(ArgType.STRING, "msg_text"),
-                new ArgMask(ArgType.INTEGER, "from_id"),
-                new ArgMask(ArgType.STRING, "nickname"),
-                new ArgMask(ArgType.STRING, "email")};
+        ArgMask[] resultMasks = {new ArgMask(ArgType.STRING, "msg_text"),
+                new ArgMask(ArgType.INTEGER, "from_id")};
         return select(SQL_SELECT_MSGS, argHolders, resultMasks);
     }
 
