@@ -31,9 +31,7 @@ import java.util.List;
 public class ChatDatabase implements AutoCloseable {
 
     private static final String DEFAULT_DB_URL = "jdbc:sqlite:src/main/resources/SQL/AChatDatabase.db";
-    private static final String EXC_HEADER = "Exception: ";
     private static final String ILL_ARGS_MSG = "Some args are incorrect";
-    private static final String SQL_EXC_MSG = "Something wrong with SQL";
     private static final String SQL_ROLLBACK_EXC_MSG = "Rollback error SQL";
     //private static final Logger log = Logger.getLogger(ChatDatabase.class);
 
@@ -48,7 +46,7 @@ public class ChatDatabase implements AutoCloseable {
     /**
      * Приватный конструктор, поскольку ChatDatabase реализует singleton паттерн
      */
-    private ChatDatabase() {
+    private ChatDatabase() throws SQLException, ClassNotFoundException {
         try {
             dbController = new DatabaseController(DEFAULT_DB_URL);
             userHandler = new UserHandler(dbController);
@@ -65,6 +63,22 @@ public class ChatDatabase implements AutoCloseable {
             // Впоследствии при попытке вызвать getInstance(), метод бросит IllegalStateException
             //log.error("Cannot create DatabaseController ", exc);
             System.out.println("Cannot create DatabaseController " + exc);
+            try {
+                dbController.close();
+            }
+            catch (SQLException closeExc) {
+                System.out.println("Cannot close after initialization fail");
+            }
+            throw exc;
+        }
+    }
+
+    private static ChatDatabase ConstructChatDatabase() {
+        try{
+            return new ChatDatabase();
+        }
+        catch (Exception exc) {
+            return null;
         }
     }
 
@@ -72,7 +86,7 @@ public class ChatDatabase implements AutoCloseable {
      * Класс, помогающий реализовать on-demand holder idiom singleton
      */
     private static class LazyHolder {
-        private static final ChatDatabase INSTANCE = new ChatDatabase();
+        private static final ChatDatabase INSTANCE = ConstructChatDatabase();
     }
 
     /**
@@ -82,7 +96,6 @@ public class ChatDatabase implements AutoCloseable {
      */
     public static ChatDatabase getInstance() {
         if (LazyHolder.INSTANCE == null) {
-            //
             throw new IllegalStateException("Chat database initialization failed");
         } else {
             return LazyHolder.INSTANCE;

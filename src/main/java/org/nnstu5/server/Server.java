@@ -23,7 +23,7 @@ import java.util.List;
 public class Server implements ServerRemote {
 
     private volatile List<ClientRemote> clients;
-    private ChatDatabase db = ChatDatabase.getInstance(); // инициализация базы данных
+    private ChatDatabase db = ChatDatabase.getInstance();
 
     /**
      * конструктор для создания коллекции, которая будет хранить ссылки на клиенты.
