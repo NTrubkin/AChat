@@ -14,10 +14,10 @@ import org.nnstu5.ui.customElement.ContainerButton;
 /**
  * @author Vermenik Maxim
  *         <p>
- *         ControllerChat - реализует контроллерную часть mvc-паттерна визуального интерфейса чата.
+ *         ChatController - реализует контроллерную часть mvc-паттерна визуального интерфейса чата.
  *         Содержит методы-обработчики событий. Без бизнес-логики.
  */
-public class ControllerChat {
+public class ChatController {
     private Model model;
 
     @FXML

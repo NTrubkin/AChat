@@ -12,12 +12,12 @@ import java.util.List;
 /**
  * @author Vermenik Maxim
  *         <p>
- *         ControllerChat - реализует модельную часть mvc-паттерна визуального интерфейса чата.
+ *         ChatController - реализует модельную часть mvc-паттерна визуального интерфейса чата.
  *         Содержит методы бизнес-логики. Не работает непосредственно с разметкой view и визуальными элементами
  */
 public class Model {
     private Client client;
-    private final ControllerChat controller;
+    private final ChatController controller;
 
     /**
      * Модель получает клиент через getClient().
@@ -25,9 +25,9 @@ public class Model {
      * Модель сохраняет ссылку на контроллер.
      * Вызов showHistory в этой же модели для показа истории сообщений.
      *
-     * @param controller ControllerChat
+     * @param controller ChatController
      */
-    Model(ControllerChat controller) {
+    Model(ChatController controller) {
         client = ClientLauncher.getClient();
         client.setModel(this);
         this.controller = controller;
