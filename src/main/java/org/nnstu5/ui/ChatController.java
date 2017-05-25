@@ -55,19 +55,22 @@ public class ChatController {
         area.appendText("\n");
     }
 
-    @FXML
-    void showConversations(ArrayList<Conversation> conversations) {
-        conversationsBox.getChildren().clear();
-        for (Conversation conversation : conversations) {
-            ContainerButton b = new ContainerButton(conversation.getName(), conversation.getId());
-            b.setOnAction(event -> {
-                int info = ((ContainerButton) event.getSource()).getInfo();
-                model.setConvers(info);
-            });
-            conversationsBox.getChildren().add(b);
-        }
-    }
-    public void clearHistory(){
+    public void clearMessages(){
         area.clear();
+    }
+
+    //Добавляет одну конференцию в список
+
+    public void showConversation(String name, int id){
+        ContainerButton b = new ContainerButton(name,id);
+        b.setOnAction(event -> {
+            int info = ((ContainerButton) event.getSource()).getInfo();
+            model.setConvers(info);
+        });
+        conversationsBox.getChildren().add(b);
+    }
+
+    public void clearConversations(){
+        conversationsBox.getChildren().clear();
     }
 }
