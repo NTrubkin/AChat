@@ -92,7 +92,7 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
 
     public List<Message> loadCurrentConversHistory() {
         try {
-            return server.getHistory(currentConvers.getId(),authorizedUser.getId());
+            return server.getHistory(currentConvers.getId(), authorizedUser.getId());
         } catch (RemoteException e) {
             return new ArrayList<>();
         }
@@ -144,9 +144,9 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
     }
 
     public void setCurrentConvers(int id) {
-        for (Conversation conversation : conversations){
-            if(conversation.getId()==id){
-                currentConvers=conversation;
+        for (Conversation conversation : conversations) {
+            if (conversation.getId() == id) {
+                currentConvers = conversation;
                 return;
             }
         }
@@ -154,6 +154,10 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
 
     public ArrayList<Conversation> getConversations() {
         return conversations;
+    }
+
+    public int getCurrentConversationId() {
+      return currentConvers.getId();
     }
 }
 

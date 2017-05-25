@@ -57,9 +57,12 @@ public class Server implements ServerRemote {
             e.printStackTrace();
         }
         for (ClientRemote client : clients) {
-            client.showMessage(message);
+            if (client.getCurrentConversationId() == conversId) {
+                client.showMessage(message);
+            }
         }
     }
+
 
     /**
      * Получает из базы данных коллецию сообщений беседы.
