@@ -15,4 +15,6 @@ import java.rmi.RemoteException;
 public interface ClientRemote extends Remote {
 
     void showMessage(Message messages) throws RemoteException;
+
+    int getCurrentConversationId() throws RemoteException;
 }

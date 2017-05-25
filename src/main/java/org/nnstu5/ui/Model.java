@@ -37,7 +37,8 @@ public class Model {
             setConvers((client.getConversations()).get(0).getId());
         }
     }
-    public void setConvers(int id){
+
+    public void setConvers(int id) {
         client.setCurrentConvers(id);
         showMessages(client.loadCurrentConversHistory());
     }
@@ -70,12 +71,22 @@ public class Model {
      * @param messages список со множеством сообщений.
      */
     private void showMessages(List<Message> messages) {
-        controller.clearHistory();
+        controller.clearMessages();
         for (Message message : messages) {
             showMessage(message);
         }
     }
-    public void showConversations (ArrayList<Conversation> conversations){
-        controller.showConversations(conversations);
+
+    /**
+     * Распаковывает список конференций. Передает их в контроллер (по одной).
+     * Очищает старые конференции из списка.
+     *
+     * @param conversations
+     */
+    public void showConversations(ArrayList<Conversation> conversations) {
+        controller.clearMessages();
+        for (Conversation conversation : conversations) {
+            controller.showConversation(conversation.getName(), conversation.getId());
+        }
     }
 }
