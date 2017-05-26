@@ -30,14 +30,15 @@ public class Model {
      * @param controller ChatController
      */
     Model(ChatController controller) {
+        this.controller = controller;
         client = ClientLauncher.getClient();
         client.setModel(this);
-        this.controller = controller;
 
         client.loadConversations();
         if (client.getConversations().size() > 0) {
             setConvers((client.getConversations()).get(0).getId());
         }
+
     }
 
     public void setConvers(int id) {

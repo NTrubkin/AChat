@@ -41,7 +41,6 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
     public void loadConversations() {
         try {
             conversations = (ArrayList) server.getConversations(authorizedUser.getId());
-            model.showConversations(conversations);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -82,6 +81,8 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
      */
     public void setModel(Model model) {
         this.model = model;
+        model.showCurrentUser(authorizedUser);
+        model.showConversations(conversations);
     }
 
     /**
@@ -119,29 +120,16 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
      * @param user – контейнер currentUser для хранения и передачи приватной информации об одном пользователе
      * @return autorizedUser – контейнер User, сохраненный в переменной экземпляра. Возращается в AuthAndRegModel.
      */
-    public User authUser(CurrentUser user) {
+    public User authorizeUser(CurrentUser user) {
         try {
             authorizedUser = server.authUser(user);
-            model.showCurrentUser(authorizedUser);
+            loadConversations();
             return authorizedUser;
         } catch (RemoteException e) {
             System.out.println("Remote error");
             e.printStackTrace();
             return null;
         }
-    }
-
-    /**
-     * Геттер для получения публичной информации о пользователе.
-     *
-     * @return контейнер User
-     */
-    public User getAuthorizedUser() {
-        return authorizedUser;
-    }
-
-    public Conversation getCurrentConvers() {
-        return currentConvers;
     }
 
     public void setCurrentConvers(int id) {
