@@ -4,7 +4,6 @@ import org.nnstu5.ChatRules;
 import org.nnstu5.client.Client;
 import org.nnstu5.client.ClientLauncher;
 import org.nnstu5.container.CurrentUser;
-import org.nnstu5.container.User;
 
 /**
  * Created by TrubkinN on 09.05.2017.
@@ -85,6 +84,6 @@ public class AuthAndRegModel {
             System.out.println("Cannot start client");
             exc.printStackTrace();
         }
-        System.out.println(client.authUser(new CurrentUser(email, password)));
+        System.out.println(client.authorizeUser(new CurrentUser(email, password)));
     }
 }

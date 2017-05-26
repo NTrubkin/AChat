@@ -3,7 +3,9 @@ package org.nnstu5.ui;
 import org.nnstu5.client.Client;
 import org.nnstu5.client.ClientLauncher;
 import org.nnstu5.container.Conversation;
+import org.nnstu5.container.CurrentUser;
 import org.nnstu5.container.Message;
+import org.nnstu5.container.User;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -28,14 +30,15 @@ public class Model {
      * @param controller ChatController
      */
     Model(ChatController controller) {
+        this.controller = controller;
         client = ClientLauncher.getClient();
         client.setModel(this);
-        this.controller = controller;
 
         client.loadConversations();
         if (client.getConversations().size() > 0) {
             setConvers((client.getConversations()).get(0).getId());
         }
+
     }
 
     public void setConvers(int id) {
@@ -88,5 +91,17 @@ public class Model {
         for (Conversation conversation : conversations) {
             controller.showConversation(conversation.getName(), conversation.getId());
         }
+    }
+
+    public void showCurrentConversation(String conversName) {
+        controller.setConversName(conversName);
+    }
+
+    public void showCurrentUser(User user) {
+        String nickname = user.getNickname();
+        String email = user.getEmail();
+
+        controller.setNickname(nickname);
+        controller.setEmail(email);
     }
 }

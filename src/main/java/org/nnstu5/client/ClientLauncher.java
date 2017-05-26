@@ -40,15 +40,12 @@ public class ClientLauncher {
             throw new IllegalStateException("Client already started");
         } else {
             try {
-
                 registry = LocateRegistry.getRegistry("localhost", ChatRules.RMI_PORT);
                 ServerRemote serverRemote = (ServerRemote) registry.lookup(ChatRules.RMI_BIND_KEY);
                 client = new Client(serverRemote);
-
             } catch (Exception e) {
                 System.err.println("Client exception: " + e.toString());
                 e.printStackTrace();
-
             }
         }
         return client;

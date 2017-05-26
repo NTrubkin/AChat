@@ -1,6 +1,7 @@
 package org.nnstu5.ui;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -26,6 +27,12 @@ public class ChatController {
     private TextField field; // поле ввода сообщений
     @FXML
     private VBox conversationsBox;
+    @FXML
+    private Label conversName;
+    @FXML
+    private Label nickname;
+    @FXML
+    private Label email;
 
     @FXML
     public void initialize() {
@@ -73,4 +80,12 @@ public class ChatController {
     public void clearConversations(){
         conversationsBox.getChildren().clear();
     }
+
+    public void setConversName(String name) {
+        conversName.setText(name);
+    }
+
+    public  void setNickname(String name) { nickname.setText(name); }
+
+    public void setEmail (String email) { this.email.setText(email);}
 }
