@@ -89,4 +89,8 @@ public class Model {
             controller.showConversation(conversation.getName(), conversation.getId());
         }
     }
+
+    public void showCurrentConversation(String conversName) {
+        controller.setConversName(conversName);
+    }
 }

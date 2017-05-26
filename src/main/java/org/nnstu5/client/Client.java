@@ -147,6 +147,7 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
         for (Conversation conversation : conversations) {
             if (conversation.getId() == id) {
                 currentConvers = conversation;
+                model.showCurrentConversation(conversation.getName());
                 return;
             }
         }
