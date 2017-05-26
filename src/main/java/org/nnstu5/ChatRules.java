@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  * Рекомендуется все свои конфиг-параметры переносить сюда
  */
 public class ChatRules {
-    public static final int RMI_PORT = 1090;
+    public static final int RMI_PORT = 1091;
     public static final String RMI_BIND_KEY = "AChat";
 
     private static final int MAX_NICK_LENGTH = 30;

@@ -122,6 +122,7 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
     public User authUser(CurrentUser user) {
         try {
             authorizedUser = server.authUser(user);
+            model.showCurrentUser(authorizedUser);
             return authorizedUser;
         } catch (RemoteException e) {
             System.out.println("Remote error");

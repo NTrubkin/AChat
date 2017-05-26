@@ -3,7 +3,9 @@ package org.nnstu5.ui;
 import org.nnstu5.client.Client;
 import org.nnstu5.client.ClientLauncher;
 import org.nnstu5.container.Conversation;
+import org.nnstu5.container.CurrentUser;
 import org.nnstu5.container.Message;
+import org.nnstu5.container.User;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -92,5 +94,13 @@ public class Model {
 
     public void showCurrentConversation(String conversName) {
         controller.setConversName(conversName);
+    }
+
+    public void showCurrentUser(User user) {
+        String nickname = user.getNickname();
+        String email = user.getEmail();
+
+        controller.setNickname(nickname);
+        controller.setEmail(email);
     }
 }

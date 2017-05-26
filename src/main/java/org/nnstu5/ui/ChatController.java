@@ -29,6 +29,10 @@ public class ChatController {
     private VBox conversationsBox;
     @FXML
     private Label conversName;
+    @FXML
+    private Label nickname;
+    @FXML
+    private Label email;
 
     @FXML
     public void initialize() {
@@ -77,7 +81,11 @@ public class ChatController {
         conversationsBox.getChildren().clear();
     }
 
-    public void setConversName(String text) {
-        conversName.setText(text);
+    public void setConversName(String name) {
+        conversName.setText(name);
     }
+
+    public  void setNickname(String name) { nickname.setText(name); }
+
+    public void setEmail (String email) { this.email.setText(email);}
 }
