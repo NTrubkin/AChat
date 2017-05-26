@@ -1,0 +1,22 @@
+.button {
+-fx-background-color: rgba(0, 105, 92, 1);
+}
+
+.button: hover {
+-fx-background-color: rgba(0, 137, 123, 1);
+}
+
+.button: pressed {
+-fx-background-color: rgba(0, 77, 64, 1);
+}
+
+
+.field {
+-fx-border-width: 0px 0px 1px 0px;
+-fx-border-style: solid;
+-fx-border-color: grey;
+-fx-background-color: rgba(0,0,0,0);
+-fx-prompt-text-fill: gray;
+-fx-text-fill: white;
+/*-fx-font-size:*/
+}
