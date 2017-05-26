@@ -44,7 +44,6 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        System.out.println(conversations);
     }
 
     /**

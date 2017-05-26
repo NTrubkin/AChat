@@ -34,7 +34,6 @@ public class Model {
         client = ClientLauncher.getClient();
         client.setModel(this);
 
-        client.loadConversations();
         if (client.getConversations().size() > 0) {
             setConvers((client.getConversations()).get(0).getId());
         }

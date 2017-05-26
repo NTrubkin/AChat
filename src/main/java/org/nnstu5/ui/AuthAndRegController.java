@@ -56,7 +56,6 @@ public class AuthAndRegController {
      * @param event
      */
     public void processAuthButton(ActionEvent event) {
-        System.out.println("auth");
         model.authorizeAndLoadChat(authEmail.getText(), authPass.getText());
         loadChatScene(event);
     }
@@ -74,7 +73,6 @@ public class AuthAndRegController {
      */
     public void processRegButton() {
         model.registerUser(regEmail.getText(), regNickname.getText(), regPassword.getText(), regPassConfirmation.getText());
-        System.out.println("reg");
     }
 
     /**

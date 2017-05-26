@@ -84,6 +84,6 @@ public class AuthAndRegModel {
             System.out.println("Cannot start client");
             exc.printStackTrace();
         }
-        System.out.println(client.authorizeUser(new CurrentUser(email, password)));
+        client.authorizeUser(new CurrentUser(email, password));
     }
 }
