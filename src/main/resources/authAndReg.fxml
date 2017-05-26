@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.nnstu5.ui.AuthAndRegController">
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+    </rowConstraints>
+    <children>
+        <ImageView fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@background.jpg" />
+            </image>
+        </ImageView>
+        <AnchorPane fx:id="authPane" onDragDetected="#showAuth" prefHeight="200.0" prefWidth="200.0">
+            <children>
+                <Pane layoutX="492.0" prefHeight="600.0" prefWidth="250.0" style="-fx-background-color: #004d40;" />
+                <VBox layoutX="505.0" layoutY="185.0" prefHeight="67.0" prefWidth="217.0">
+                    <children>
+                        <TextField focusTraversable="false" layoutX="505.0" layoutY="176.0" prefHeight="25.0" prefWidth="200.0" promptText="E-mail" styleClass="field" stylesheets="@css.css">
+                            <font>
+                                <Font name="Open Sans Light Italic" size="12.0" />
+                            </font>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <VBox.margin>
+                                <Insets bottom="5.0" />
+                            </VBox.margin>
+                        </TextField>
+                        <PasswordField focusTraversable="false" promptText="Пароль" styleClass="field" stylesheets="@css.css">
+                            <font>
+                                <Font name="Open Sans Light Italic" size="12.0" />
+                            </font>
+                        </PasswordField>
+                    </children>
+                    <opaqueInsets>
+                        <Insets bottom="5.0" top="5.0" />
+                    </opaqueInsets>
+                    <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                    </padding>
+                </VBox>
+                <Button fx:id="buttonAuth" focusTraversable="false" layoutX="658.0" layoutY="283.0" mnemonicParsing="false" onAction="#processAuthButton" prefHeight="30.0" prefWidth="65.0" stylesheets="@css.css" text="Войти" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Open Sans Light" size="14.0" />
+                    </font>
+                </Button>
+                <Label layoutX="512.0" layoutY="141.0" text="Вход" textFill="WHITE">
+                    <font>
+                        <Font name="Open Sans Light" size="18.0" />
+                    </font>
+                </Label>
+                <Button focusTraversable="false" layoutX="505.0" layoutY="285.0" mnemonicParsing="false" onAction="#showReg" style="-fx-background-color: 0,0,0,0;" text="Регистрация" textFill="#5f7471">
+                    <font>
+                        <Font name="Open Sans" size="12.0" />
+                    </font>
+                </Button>
+            <Pane layoutX="492.0" layoutY="533.0" prefHeight="67.0" prefWidth="250.0" visible="false">
+               <children>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="20.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@error.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="62.0" layoutY="25.0" text="ERRORS" textFill="WHITE" />
+               </children>
+            </Pane>
+            <VBox layoutX="696.0" layoutY="189.0" visible="false">
+               <children>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@error.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="7.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@error.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="regPane" prefHeight="200.0" prefWidth="200.0">
+            <children>
+                <Pane layoutX="64.0" prefHeight="600.0" prefWidth="250.0" style="-fx-background-color: #004d40;">
+                    <children>
+                        <VBox layoutX="20.0" layoutY="173.0">
+                            <children>
+                                <TextField focusTraversable="false" layoutX="83.0" layoutY="176.0" prefHeight="26.0" prefWidth="191.0" promptText="E-mail" styleClass="field" stylesheets="@css.css">
+                                    <font>
+                                        <Font name="Open Sans Light Italic" size="12.0" />
+                                    </font>
+                                    <VBox.margin>
+                                        <Insets bottom="5.0" />
+                                    </VBox.margin>
+                                </TextField>
+                                <TextField focusTraversable="false" layoutX="83.0" layoutY="210.0" prefHeight="25.0" prefWidth="201.0" promptText="Имя в системе" styleClass="field" stylesheets="@css.css">
+                                    <font>
+                                        <Font name="Open Sans Light Italic" size="12.0" />
+                                    </font>
+                                    <VBox.margin>
+                                        <Insets bottom="5.0" />
+                                    </VBox.margin>
+                                </TextField>
+                                <PasswordField focusTraversable="false" layoutX="10.0" layoutY="189.0" promptText="Пароль" styleClass="field" stylesheets="@css.css">
+                                    <font>
+                                        <Font name="Open Sans Light Italic" size="12.0" />
+                                    </font>
+                                    <VBox.margin>
+                                        <Insets bottom="5.0" />
+                                    </VBox.margin>
+                                </PasswordField>
+                                <PasswordField focusTraversable="false" layoutX="10.0" layoutY="235.0" promptText="Подтверждение пароля" styleClass="field" stylesheets="@css.css">
+                                    <font>
+                                        <Font name="Open Sans Light Italic" size="12.0" />
+                                    </font>
+                                </PasswordField>
+                            </children>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <padding>
+                                <Insets bottom="5.0" top="5.0" />
+                            </padding>
+                        </VBox>
+                  <Pane layoutY="533.0" prefHeight="67.0" prefWidth="250.0" visible="false">
+                     <children>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="20.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@error.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="62.0" layoutY="25.0" text="ERRORS" textFill="WHITE">
+                           <font>
+                              <Font name="Open Sans Light" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <VBox layoutX="196.0" layoutY="177.0" visible="false">
+                     <children>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@error.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets bottom="7.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@error.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets bottom="7.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@error.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets bottom="7.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@error.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+                    </children>
+                </Pane>
+                <Label layoutX="90.0" layoutY="140.0" text="Регистрация" textFill="WHITE">
+                    <font>
+                        <Font name="Open Sans Light" size="18.0" />
+                    </font>
+                </Label>
+                <Button focusTraversable="false" layoutX="85.0" layoutY="320.0" mnemonicParsing="false" onAction="#showAuth" stylesheets="@css.css" text="Назад" textFill="WHITE">
+                    <font>
+                        <Font name="Open Sans Light" size="14.0" />
+                    </font>
+                </Button>
+                <Button focusTraversable="false" layoutX="150.0" layoutY="320.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" stylesheets="@css.css" text="Зарегистрироваться" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Open Sans Light" size="14.0" />
+                    </font>
+                </Button>
+            </children>
+        </AnchorPane>
+    </children>
+</GridPane>

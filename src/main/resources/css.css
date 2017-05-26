@@ -1,0 +1,23 @@
+.button {
+-fx-background-color: #00695c;
+}
+
+.button: hover {
+-fx-background-color: #00897b;
+}
+
+.button: pressed {
+-fx-background-color: #004d40;
+}
+
+
+.field {
+-fx-border-width: 0px 0px 1px 0px;
+-fx-border-style: solid;
+-fx-border-color: grey;
+-fx-background-color: rgba(0,0,0,0);
+-fx-prompt-text-fill: gray;
+-fx-text-fill: white;
+/*-fx-font-size:*/
+}
+

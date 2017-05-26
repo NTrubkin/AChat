@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.input.DragEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.nnstu5.client.ClientLauncher;
@@ -23,6 +25,8 @@ public class AuthAndRegController {
     public AnchorPane authPane;
     @FXML
     public AnchorPane regPane;
+    @FXML
+    private Button buttonAuth;
 
     @FXML
     public void initialize() {
