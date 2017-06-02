@@ -28,5 +28,7 @@ public interface ServerRemote extends Remote {
     User authUser(CurrentUser currentUser) throws RemoteException;
 
     List<Conversation> getConversations(int userId) throws RemoteException;
+
+    void createConversation(String name, int creatorId) throws RemoteException;
 }
 

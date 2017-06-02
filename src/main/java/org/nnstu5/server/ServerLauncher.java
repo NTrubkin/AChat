@@ -46,7 +46,7 @@ public class ServerLauncher {
         }
 
         private static void open() throws RemoteException, AlreadyBoundException {
-            Server obj = new Server();
+            ServerRemote obj = new Server();
             registry = LocateRegistry.createRegistry(ChatRules.RMI_PORT);
             ServerRemote stub = (ServerRemote) UnicastRemoteObject.exportObject(obj, 0);
 

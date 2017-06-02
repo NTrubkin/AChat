@@ -1,5 +1,7 @@
 package org.nnstu5.client;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.nnstu5.container.Conversation;
 import org.nnstu5.container.CurrentUser;
 import org.nnstu5.container.Message;
@@ -7,7 +9,6 @@ import org.nnstu5.container.User;
 import org.nnstu5.server.ServerRemote;
 import org.nnstu5.ui.Model;
 
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -24,7 +25,8 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
     private ServerRemote server;
     private Model model;
     private User authorizedUser;    // контейнер с публичной информацией о пользователе.
-    private ArrayList<Conversation> conversations = new ArrayList<>();
+    private ObservableList<Conversation> conversations = FXCollections.observableArrayList();
+
     private Conversation currentConvers;
 
     /**
@@ -40,7 +42,8 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
 
     public void loadConversations() {
         try {
-            conversations = (ArrayList) server.getConversations(authorizedUser.getId());
+            conversations.clear();
+            conversations.addAll((ArrayList) server.getConversations(authorizedUser.getId()));
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -81,7 +84,6 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
     public void setModel(Model model) {
         this.model = model;
         model.showCurrentUser(authorizedUser);
-        model.showConversations(conversations);
     }
 
     /**
@@ -141,12 +143,20 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
         }
     }
 
-    public ArrayList<Conversation> getConversations() {
-        return conversations;
-    }
-
     public int getCurrentConversationId() {
       return currentConvers.getId();
+    }
+
+    public ObservableList<Conversation> getConversations() {
+        return conversations;
+    }
+    public void createConversation(String name) {
+        try {
+            server.createConversation(name, authorizedUser.getId());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        loadConversations();
     }
 }
 

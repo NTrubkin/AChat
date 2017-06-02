@@ -117,6 +117,13 @@ public class Server implements ServerRemote {
             return new ArrayList<>();
         }
     }
+    public void createConversation(String name, int creatorId) {
+        try {
+            db.createConversation(name, creatorId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 
