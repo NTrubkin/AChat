@@ -35,6 +35,8 @@ public class ChatController {
     private ListView<Conversation> conversListView;
     @FXML
     private TextField newConversName;
+    @FXML
+    public TextField newFriendEmail;
 
 
     @FXML
@@ -95,5 +97,10 @@ public class ChatController {
     public void processCreateConversationButton() {
         model.createConversation(newConversName.getText());
         newConversName.clear();
+    }
+
+    public void processAddFriendButton() {
+        model.addFriend(newFriendEmail.getText());
+        newFriendEmail.clear();
     }
 }

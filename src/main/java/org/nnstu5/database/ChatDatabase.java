@@ -390,6 +390,22 @@ public class ChatDatabase implements AutoCloseable {
     }
 
     /**
+     * Добавляет статус "друзей" у двух пользователей
+     *
+     * @param initiatorId пользователь-инициатор
+     * @param friendEmail эл. почта другого пользователя
+     * @throws SQLException
+     */
+    public void addFriend(int initiatorId, String friendEmail) throws SQLException {
+        if(!ChatRules.isValidUserEmail(friendEmail)) {
+            throw new IllegalArgumentException(ILL_ARGS_MSG);
+        }
+
+        addFriend(initiatorId, userHandler.findUser(friendEmail));
+        dbController.commitTransaction();
+    }
+
+    /**
      * Удаляет статус "друзей" у двух пользователей
      *
      * @param initiatorId пользователь-инициатор разрыва

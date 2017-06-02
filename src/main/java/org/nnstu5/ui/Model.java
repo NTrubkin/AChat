@@ -97,8 +97,14 @@ public class Model {
     }
 
     public void createConversation(String name) {
-        if (ChatRules.isValidConversationName(name)){
+        if (ChatRules.isValidConversationName(name)) {
             client.createConversation(name);
+        }
+    }
+
+    public void addFriend(String email) {
+        if (ChatRules.isValidUserEmail(email)) {
+            client.addFriend(email);
         }
     }
 }

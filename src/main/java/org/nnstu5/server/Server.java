@@ -124,6 +124,14 @@ public class Server implements ServerRemote {
             e.printStackTrace();
         }
     }
+
+    public void addFriend(String email, int initiatorId) {
+        try {
+            db.addFriend(initiatorId, email);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 

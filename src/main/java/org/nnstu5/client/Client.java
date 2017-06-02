@@ -158,6 +158,17 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
         }
         loadConversations();
     }
+
+    public void addFriend(String email) {
+        try {
+            server.addFriend(email,authorizedUser.getId());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        catch (IllegalArgumentException exc) {
+            System.out.println("Illegal argument by adding new friend");
+        }
+    }
 }
 
 
