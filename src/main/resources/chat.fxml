@@ -95,6 +95,8 @@
                   </ImageView>
                </children>
             </Pane>
+            <Button fx:id="conversPaneButton" layoutX="22.0" layoutY="26.0" mnemonicParsing="false" onAction="#processConversPaneButton" prefHeight="25.0" prefWidth="68.0" text="Беседы" />
+            <Button fx:id="friendsPaneButton" layoutX="122.0" layoutY="26.0" mnemonicParsing="false" onAction="#processFriendsPaneButton" prefHeight="25.0" prefWidth="68.0" text="Друзья" />
             </children>
         </AnchorPane>
     </children>

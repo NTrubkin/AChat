@@ -4,6 +4,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.nnstu5.container.Conversation;
 
@@ -20,26 +21,40 @@ import org.nnstu5.ui.customElement.ContainerButton;
  */
 public class ChatController {
 
+
     private Model model;
 
     @FXML
     private TextArea area;   // поле вывода сообщений
     @FXML
     private TextField field; // поле ввода сообщений
+
     @FXML
     private Label conversName;
     @FXML
     private Label nickname;
     @FXML
     private Label email;
+
     @FXML
     private ListView<Conversation> conversListView;
     @FXML
     private ListView<User> friendsListView;
+
     @FXML
     private TextField newConversName;
     @FXML
     public TextField newFriendEmail;
+
+    @FXML
+    public Button conversPaneButton;
+    @FXML
+    public Button friendsPaneButton;
+
+    @FXML
+    public AnchorPane friendsPane;
+    @FXML
+    public AnchorPane conversPane;
 
 
     @FXML
@@ -57,6 +72,7 @@ public class ChatController {
                     model.setConvers(newVal.getId());
                 });
         friendsListView.setItems(model.getFriends());
+        showConversationsPane();
     }
 
     /**
@@ -105,5 +121,27 @@ public class ChatController {
     public void processAddFriendButton() {
         model.addFriend(newFriendEmail.getText());
         newFriendEmail.clear();
+    }
+
+    public void showFriendsPane() {
+        friendsPane.setVisible(true);
+        conversPane.setVisible(false);
+        friendsPaneButton.setDisable(true);
+        conversPaneButton.setDisable(false);
+    }
+
+    public void showConversationsPane() {
+        friendsPane.setVisible(false);
+        conversPane.setVisible(true);
+        friendsPaneButton.setDisable(false);
+        conversPaneButton.setDisable(true);
+    }
+
+    public void processConversPaneButton() {
+        showConversationsPane();
+    }
+
+    public void processFriendsPaneButton() {
+        showFriendsPane();
     }
 }
