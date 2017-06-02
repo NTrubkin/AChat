@@ -117,6 +117,7 @@ public class Server implements ServerRemote {
             return new ArrayList<>();
         }
     }
+
     public void createConversation(String name, int creatorId) {
         try {
             db.createConversation(name, creatorId);
@@ -131,6 +132,15 @@ public class Server implements ServerRemote {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<User> getFriends(int initiatorId) {
+        try {
+            return db.getUserFriends(initiatorId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
     }
 }
 

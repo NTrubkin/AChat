@@ -26,6 +26,7 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
     private Model model;
     private User authorizedUser;    // контейнер с публичной информацией о пользователе.
     private ObservableList<Conversation> conversations = FXCollections.observableArrayList();
+    private ObservableList<User> friends = FXCollections.observableArrayList();
 
     private Conversation currentConvers;
 
@@ -40,7 +41,7 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
         server.registerClient(this);
     }
 
-    public void loadConversations() {
+    private void loadConversations() {
         try {
             conversations.clear();
             conversations.addAll((ArrayList) server.getConversations(authorizedUser.getId()));
@@ -125,6 +126,7 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
         try {
             authorizedUser = server.authUser(user);
             loadConversations();
+            loadFriends();
             return authorizedUser;
         } catch (RemoteException e) {
             System.out.println("Remote error");
@@ -144,12 +146,26 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
     }
 
     public int getCurrentConversationId() {
-      return currentConvers.getId();
+        return currentConvers.getId();
     }
 
     public ObservableList<Conversation> getConversations() {
         return conversations;
     }
+
+    public ObservableList<User> getFriends() {
+        return friends;
+    }
+
+    private void loadFriends() {
+        try {
+            friends.clear();
+            friends.addAll(server.getFriends(authorizedUser.getId()));
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void createConversation(String name) {
         try {
             server.createConversation(name, authorizedUser.getId());
@@ -161,13 +177,13 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
 
     public void addFriend(String email) {
         try {
-            server.addFriend(email,authorizedUser.getId());
+            server.addFriend(email, authorizedUser.getId());
         } catch (RemoteException e) {
             e.printStackTrace();
-        }
-        catch (IllegalArgumentException exc) {
+        } catch (IllegalArgumentException exc) {
             System.out.println("Illegal argument by adding new friend");
         }
+        loadFriends();
     }
 }
 

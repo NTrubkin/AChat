@@ -9,6 +9,7 @@ import org.nnstu5.container.Conversation;
 
 import java.util.ArrayList;
 
+import org.nnstu5.container.User;
 import org.nnstu5.ui.customElement.ContainerButton;
 
 /**
@@ -34,6 +35,8 @@ public class ChatController {
     @FXML
     private ListView<Conversation> conversListView;
     @FXML
+    private ListView<User> friendsListView;
+    @FXML
     private TextField newConversName;
     @FXML
     public TextField newFriendEmail;
@@ -53,7 +56,7 @@ public class ChatController {
                  Conversation newVal) -> {
                     model.setConvers(newVal.getId());
                 });
-
+        friendsListView.setItems(model.getFriends());
     }
 
     /**

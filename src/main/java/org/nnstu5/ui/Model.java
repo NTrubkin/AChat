@@ -96,6 +96,10 @@ public class Model {
         return client.getConversations();
     }
 
+    public ObservableList<User> getFriends() {
+        return client.getFriends();
+    }
+
     public void createConversation(String name) {
         if (ChatRules.isValidConversationName(name)) {
             client.createConversation(name);
