@@ -1,9 +1,10 @@
 package org.nnstu5.ui;
 
+import javafx.collections.ObservableList;
+import org.nnstu5.ChatRules;
 import org.nnstu5.client.Client;
 import org.nnstu5.client.ClientLauncher;
 import org.nnstu5.container.Conversation;
-import org.nnstu5.container.CurrentUser;
 import org.nnstu5.container.Message;
 import org.nnstu5.container.User;
 
@@ -79,19 +80,6 @@ public class Model {
         }
     }
 
-    /**
-     * Распаковывает список конференций. Передает их в контроллер (по одной).
-     * Очищает старые конференции из списка.
-     *
-     * @param conversations
-     */
-    public void showConversations(ArrayList<Conversation> conversations) {
-        controller.clearMessages();
-        for (Conversation conversation : conversations) {
-            controller.showConversation(conversation.getName(), conversation.getId());
-        }
-    }
-
     public void showCurrentConversation(String conversName) {
         controller.setConversName(conversName);
     }
@@ -102,5 +90,25 @@ public class Model {
 
         controller.setNickname(nickname);
         controller.setEmail(email);
+    }
+
+    public ObservableList<Conversation> getConversations() {
+        return client.getConversations();
+    }
+
+    public ObservableList<User> getFriends() {
+        return client.getFriends();
+    }
+
+    public void createConversation(String name) {
+        if (ChatRules.isValidConversationName(name)) {
+            client.createConversation(name);
+        }
+    }
+
+    public void addFriend(String email) {
+        if (ChatRules.isValidUserEmail(email)) {
+            client.addFriend(email);
+        }
     }
 }
