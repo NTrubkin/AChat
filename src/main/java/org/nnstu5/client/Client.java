@@ -28,6 +28,7 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
     private ObservableList<Conversation> conversations = FXCollections.observableArrayList();
     private ObservableList<User> friends = FXCollections.observableArrayList();
     private ObservableList<User> nonMembersConversations = FXCollections.observableArrayList();
+    private ObservableList<Message> messages = FXCollections.observableArrayList();
 
     private Conversation currentConvers;
 
@@ -62,22 +63,9 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
         server.recieveMessage(new Message(text, authorizedUser.getId()), currentConvers.getId());
     }
 
-    /**
-     * Отображает на стороне этого клиента сообщение. Переопределено из ClientRemote
-     *
-     * @param message текст сообщения
-     * @throws RemoteException
-     */
-
-    public void showMessage(Message message) throws RemoteException {
-        try {
-            model.showMessage(message);
-        } catch (NullPointerException exc) {
-            System.out.println("model is null");
-            exc.printStackTrace();
-        }
+    public void newShowMessage(Message message) {
+        messages.add(message);
     }
-
 
     /**
      * Устанавливает модель визуального интерфейса для дальнейшего использования
@@ -142,6 +130,7 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
             if (conversation.getId() == id) {
                 currentConvers = conversation;
                 model.showCurrentConversation(conversation.getName());
+                loadMessages();
                 return;
             }
         }
@@ -149,6 +138,10 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
 
     public int getCurrentConversationId() {
         return currentConvers.getId();
+    }
+
+    public ObservableList<Message> getMessages() {
+        return messages;
     }
 
     public ObservableList<Conversation> getConversations() {
@@ -162,6 +155,16 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
     public ObservableList<User> getNonMembersConversation() {
         loadNonMembersConverastion();
         return nonMembersConversations;
+    }
+
+
+    private void loadMessages() {
+        messages.clear();
+        try {
+            messages.addAll(server.getHistory(currentConvers.getId(), authorizedUser.getId()));
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadFriends() {

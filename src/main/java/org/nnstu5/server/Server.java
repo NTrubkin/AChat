@@ -58,7 +58,7 @@ public class Server implements ServerRemote {
         }
         for (ClientRemote client : clients) {
             if (client.getCurrentConversationId() == conversId) {
-                client.showMessage(message);
+                client.newShowMessage(message);
             }
         }
     }

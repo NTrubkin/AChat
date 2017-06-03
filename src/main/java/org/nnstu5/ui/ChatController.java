@@ -24,8 +24,6 @@ public class ChatController {
     private Model model;
 
     @FXML
-    private TextArea area;   // поле вывода сообщений
-    @FXML
     private TextField field; // поле ввода сообщений
 
     @FXML
@@ -41,7 +39,8 @@ public class ChatController {
     private ListView<User> friendsListView;
     @FXML
     private ListView<User> nonMemberConversListView;
-
+    @FXML
+    private ListView messagesListView;
 
     @FXML
     private TextField newConversName;
@@ -94,6 +93,8 @@ public class ChatController {
                     // @todo снять выделение выбранной ячейки (иначе вызывает исключение)
                     model.addUserToCurrentConvers(newVal.getId());
                 });
+        messagesListView.setItems(model.getMessages());
+
         showConversationsPane();
         navPane.setVisible(false);
     }
@@ -107,20 +108,6 @@ public class ChatController {
         model.sendMessage(text);
         field.clear();
 
-    }
-
-    /**
-     * Выводит на экран новое сообщение
-     *
-     * @param text текст нового сообщения
-     */
-    void appendMessage(String text) {
-        area.appendText(text);
-        area.appendText("\n");
-    }
-
-    public void clearMessages() {
-        area.clear();
     }
 
     public void setConversName(String name) {
@@ -186,13 +173,6 @@ public class ChatController {
         model.loadNonMembersConverastion();
         showNonMembersConversPane();
         navPane.setVisible(false);
-/*        if (model.isAuthorizedUserCreatorOfCurrentConvers()) {
-            nonMembersConversPaneButton.setDisable(false);
-            navPane.setVisible(false);
-            showNonMembersConvers();
-        } else {
-            nonMembersConversPaneButton.setDisable(true);
-        }*/
     }
 
     public void setNonMembersConversPaneButtonState(boolean disabled) {
