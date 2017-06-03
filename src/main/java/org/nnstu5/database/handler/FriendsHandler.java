@@ -26,6 +26,14 @@ public class FriendsHandler extends DatabasePartHandler {
             "inner join account a\n" +
             "    on f.friend_id == a.account_id;";
     private static final String SQL_CHECK_FRIENDS = "select first_friend_id from friends_pair where ((first_friend_id = ?) & (second_friend_id = ?)) | ((first_friend_id = ?) & (second_friend_id = ?));";
+    private static final String SQL_SELECT_NON_MEMBER_FRIENDS = "select friend_id, nickname, email\n" +
+            "from (select (first_friend_id + second_friend_id - ?) friend_id\n" +
+            "from friends_pair\n" +
+            "where (first_friend_id = ?) | (second_friend_id = ?)\n" +
+            "    EXCEPT\n" +
+            "select member_id from convers_member where convers_id = ?) f\n" +
+            "inner join account a\n" +
+            "on f.friend_id == a.account_id;";
 
     public FriendsHandler(Preparatory statementCreator) {
         super(statementCreator);
@@ -80,5 +88,30 @@ public class FriendsHandler extends DatabasePartHandler {
      */
     public boolean areUsersFrends(int firstUserId, int secondUserId) throws SQLException {
         return checkBySelect(SQL_CHECK_FRIENDS, new ArgHolder(firstUserId), new ArgHolder(secondUserId), new ArgHolder(secondUserId), new ArgHolder(firstUserId));
+    }
+
+
+    /**
+     * Формирует список друзей пользователя userId, которые не являются членами conversId
+     *
+     * @param userId пользователь, чьих друзей нужно найти
+     * @param conversId беседа, в которую не входят друзья
+     * @return List<User> список друзей, не являющихся членами conversId
+     */
+
+    /**
+     * Выполняет sql-запрос выбора всех друзей пользователя userId, которые не являются членами беседы conversId
+     *
+     * @param userId пользователь, чьих друзей нужно найти
+     * @param conversId беседа, в которую не входят друзья
+     * @return List<ArgLine> список друзей, не являющихся членами conversId
+     * @throws SQLException
+     */
+    public List<ArgLine> selectNonMemberFriends(int userId, int conversId) throws SQLException {
+        ArgHolder[] argHolders = {new ArgHolder(userId), new ArgHolder(userId), new ArgHolder(userId), new ArgHolder(conversId)};
+        ArgMask[] resultMasks = {new ArgMask(ArgType.INTEGER, "friend_id"),
+                new ArgMask(ArgType.STRING, "nickname"),
+                new ArgMask(ArgType.STRING, "email")};
+        return select(SQL_SELECT_NON_MEMBER_FRIENDS, argHolders, resultMasks);
     }
 }
