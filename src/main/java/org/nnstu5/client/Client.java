@@ -176,7 +176,7 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
     public void loadNonMembersConverastion() {
         nonMembersConversations.clear();
         try {
-            nonMembersConversations.addAll(server.getNonMembersConversation(authorizedUser.getId()));
+            nonMembersConversations.addAll(server.getNonMembersConversation(authorizedUser.getId(), currentConvers.getId()));
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -202,11 +202,16 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
         loadFriends();
     }
 
-    public boolean isValidCreatorIdConversationId() {
-        if (authorizedUser.getId() == currentConvers.getId()) {
-            return true;
+    public boolean isAuthorizedUserCreatorOfCurrentConvers() {
+        return authorizedUser.getId() == currentConvers.getCreatorId();
+    }
+    public void addUserToCurrentConvers(int userId) {
+        try {
+            server.addUserToConvers(currentConvers.getId(),userId,authorizedUser.getId());
+        } catch (RemoteException e) {
+            e.printStackTrace();
         }
-        return false;
+        loadNonMembersConverastion();
     }
 }
 

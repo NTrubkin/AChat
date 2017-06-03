@@ -144,18 +144,22 @@ public class Server implements ServerRemote {
         return new ArrayList<>();
     }
 
-    /**
-     * Тестовый метод
-     * @param userId
-     * @return
-     */
-    public List<User> getNonMembersConversation(int userId) {
+
+    public List<User> getNonMembersConversation(int userId, int conversId) {
         try {
-            return db.getUserFriends(userId);
+            return db.getNonMemberFriends(userId, conversId);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return new ArrayList<>();
+    }
+
+    public void addUserToConvers(int conversId, int userId, int initiatorId) {
+        try {
+            db.addUserToConversation(conversId, userId, initiatorId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 

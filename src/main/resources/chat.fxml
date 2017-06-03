@@ -71,7 +71,7 @@
                         <Font name="Open Sans Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Button fx:id="addMemberConvers" mnemonicParsing="false" onAction="#processAddMemberConvers" prefHeight="25.0" prefWidth="121.0" text="Добавить в беседу" />
+                  <Button fx:id="nonMembersConversPaneButton" mnemonicParsing="false" onAction="#processNonMembersConversPaneButton" prefHeight="25.0" prefWidth="121.0" text="Добавить в беседу" />
                </children>
             </HBox>
             <Pane layoutX="3.0" layoutY="546.0" prefHeight="53.0" prefWidth="216.0">
@@ -98,16 +98,16 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <AnchorPane fx:id="navPane" layoutX="107.0" layoutY="52.0" prefHeight="71.0" prefWidth="93.0">
-               <children>
-                  <Button fx:id="conversPaneButton" layoutX="20.0" layoutY="15.0" mnemonicParsing="false" onAction="#processConversPaneButton" prefHeight="25.0" prefWidth="68.0" text="Беседы" />
-                  <Button fx:id="friendsPaneButton" layoutX="18.0" layoutY="41.0" mnemonicParsing="false" onAction="#processFriendsPaneButton" prefHeight="25.0" prefWidth="68.0" text="Друзья" />
-               </children>
-            </AnchorPane>
             <Button layoutX="188.0" layoutY="14.0" mnemonicParsing="false" onAction="#processNavPaneButton" text="V" />
             <AnchorPane fx:id="nonMembersConvers" layoutX="14.0" layoutY="68.0" prefHeight="463.0" prefWidth="209.0">
                <children>
                   <ListView fx:id="nonMemberConversListView" prefHeight="404.0" prefWidth="200.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="navPane" layoutX="107.0" layoutY="52.0" prefHeight="71.0" prefWidth="93.0">
+               <children>
+                  <Button fx:id="conversPaneButton" layoutX="20.0" layoutY="15.0" mnemonicParsing="false" onAction="#processConversPaneButton" prefHeight="25.0" prefWidth="68.0" text="Беседы" />
+                  <Button fx:id="friendsPaneButton" layoutX="18.0" layoutY="41.0" mnemonicParsing="false" onAction="#processFriendsPaneButton" prefHeight="25.0" prefWidth="68.0" text="Друзья" />
                </children>
             </AnchorPane>
             </children>

@@ -82,6 +82,7 @@ public class Model {
 
     public void showCurrentConversation(String conversName) {
         controller.setConversName(conversName);
+        updateNonMembersConversPaneButton();
     }
 
     public void showCurrentUser(User user) {
@@ -100,7 +101,9 @@ public class Model {
         return client.getFriends();
     }
 
-    public ObservableList<User> getNonMembersConversation(){ return client.getNonMembersConversation();}
+    public ObservableList<User> getNonMembersConversation() {
+        return client.getNonMembersConversation();
+    }
 
     public void createConversation(String name) {
         if (ChatRules.isValidConversationName(name)) {
@@ -113,13 +116,20 @@ public class Model {
             client.addFriend(email);
         }
     }
-    public boolean isValidCreatorIdConversationId(){
-        if (client.isValidCreatorIdConversationId() == true) {
-            return true;
-        }
-        return false;
-    }
+
     public void loadNonMembersConverastion() {
         client.loadNonMembersConverastion();
+    }
+
+    public void updateNonMembersConversPaneButton() {
+        if (client.isAuthorizedUserCreatorOfCurrentConvers()) {
+            controller.setNonMembersConversPaneButtonState(false);
+        } else {
+            controller.setNonMembersConversPaneButtonState(true);
+        }
+    }
+
+    public void addUserToCurrentConvers(int userId) {
+        client.addUserToCurrentConvers(userId);
     }
 }

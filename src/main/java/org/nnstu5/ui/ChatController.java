@@ -53,7 +53,7 @@ public class ChatController {
     @FXML
     public Button friendsPaneButton;
     @FXML
-    private Button addMemberConvers;
+    private Button nonMembersConversPaneButton;
 
 
     @FXML
@@ -91,7 +91,8 @@ public class ChatController {
         nonMemberConversListView.getSelectionModel().selectedItemProperty().addListener(
                 (ObservableValue<? extends User> ov, User oldVal,
                  User newVal) -> {
-                    System.out.println("Все работает");
+                    // @todo снять выделение выбранной ячейки (иначе вызывает исключение)
+                    model.addUserToCurrentConvers(newVal.getId());
                 });
         showConversationsPane();
         navPane.setVisible(false);
@@ -159,7 +160,7 @@ public class ChatController {
         navLabel.setText("Беседы");
     }
 
-    public void showNonMembersConvers() {
+    public void showNonMembersConversPane() {
         friendsPane.setVisible(false);
         conversPane.setVisible(false);
         nonMembersConvers.setVisible(true);
@@ -181,13 +182,20 @@ public class ChatController {
         navPane.setVisible(!navPane.isVisible());
     }
 
-    public void processAddMemberConvers() {
+    public void processNonMembersConversPaneButton() {
         model.loadNonMembersConverastion();
-        if (model.isValidCreatorIdConversationId() == true) {
-            showNonMembersConvers();
+        showNonMembersConversPane();
+        navPane.setVisible(false);
+/*        if (model.isAuthorizedUserCreatorOfCurrentConvers()) {
+            nonMembersConversPaneButton.setDisable(false);
             navPane.setVisible(false);
+            showNonMembersConvers();
         } else {
-            addMemberConvers.disabledProperty();
-        }
+            nonMembersConversPaneButton.setDisable(true);
+        }*/
+    }
+
+    public void setNonMembersConversPaneButtonState(boolean disabled) {
+        nonMembersConversPaneButton.setDisable(disabled);
     }
 }

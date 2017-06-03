@@ -35,6 +35,8 @@ public interface ServerRemote extends Remote {
 
     List<User> getFriends(int initiatorId) throws RemoteException;
 
-    List<User> getNonMembersConversation(int userId) throws RemoteException; // Тестовый метод
+    List<User> getNonMembersConversation(int userId, int conversId) throws RemoteException;
+
+    void addUserToConvers(int conversId, int userId, int initiatorId) throws RemoteException;
 }
 
