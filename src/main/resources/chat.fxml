@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -21,10 +13,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.nnstu5.ui.ChatController">
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.nnstu5.ui.ChatController">
     <columnConstraints>
         <ColumnConstraints />
     </columnConstraints>
@@ -44,7 +35,7 @@
                   <Image url="@iconContact.png" />
                </image>
             </ImageView>
-            <AnchorPane fx:id="friendsPane" layoutX="6.0" layoutY="56.0" prefHeight="463.0" prefWidth="209.0">
+            <AnchorPane fx:id="friendsPane" layoutX="6.0" layoutY="56.0" prefHeight="463.0" prefWidth="209.0" visible="false">
                <children>
                   <ListView fx:id="friendsListView" prefHeight="404.0" prefWidth="200.0" />
                   <Button layoutX="105.0" layoutY="418.0" mnemonicParsing="false" onAction="#processAddFriendButton" prefHeight="25.0" prefWidth="104.0" text="Добавить друга" />
@@ -63,7 +54,6 @@
                <font>
                   <Font name="Open Sans Italic" size="12.0" />
                </font></TextField>
-                <TextArea fx:id="area" editable="false" focusTraversable="false" layoutX="237.0" layoutY="68.0" prefHeight="463.0" prefWidth="533.0" style="-fx-background-color: rgba(0,0,0,0);" />
             <HBox alignment="TOP_CENTER" layoutX="235.0" layoutY="10.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="32.0" prefWidth="533.0">
                <children>
                   <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
@@ -79,6 +69,7 @@
                         <Font name="Open Sans Bold" size="16.0" />
                      </font>
                   </Label>
+                  <Button fx:id="nonMembersConversPaneButton" mnemonicParsing="false" onAction="#processNonMembersConversPaneButton" prefHeight="25.0" prefWidth="121.0" text="Добавить в беседу" />
                </children>
             </HBox>
             <Pane layoutX="3.0" layoutY="546.0" prefHeight="53.0" prefWidth="216.0">
@@ -100,18 +91,24 @@
                   </ImageView>
                </children>
             </Pane>
-            <Label fx:id="navLabel" layoutX="69.0" layoutY="14.0" prefHeight="25.0" prefWidth="84.0" text="Menu item" textFill="#fff7f7">
+            <Label fx:id="navLabel" layoutX="54.0" layoutY="16.0" prefHeight="25.0" prefWidth="128.0" text="Menu item" textFill="#fff7f7">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
+            <Button layoutX="188.0" layoutY="14.0" mnemonicParsing="false" onAction="#processNavPaneButton" text="V" />
+            <AnchorPane fx:id="nonMembersConvers" layoutX="14.0" layoutY="68.0" prefHeight="463.0" prefWidth="209.0">
+               <children>
+                  <ListView fx:id="nonMemberConversListView" prefHeight="404.0" prefWidth="200.0" />
+               </children>
+            </AnchorPane>
             <AnchorPane fx:id="navPane" layoutX="107.0" layoutY="52.0" prefHeight="71.0" prefWidth="93.0">
                <children>
                   <Button fx:id="conversPaneButton" layoutX="20.0" layoutY="15.0" mnemonicParsing="false" onAction="#processConversPaneButton" prefHeight="25.0" prefWidth="68.0" text="Беседы" />
                   <Button fx:id="friendsPaneButton" layoutX="18.0" layoutY="41.0" mnemonicParsing="false" onAction="#processFriendsPaneButton" prefHeight="25.0" prefWidth="68.0" text="Друзья" />
                </children>
             </AnchorPane>
-            <Button layoutX="173.0" layoutY="14.0" mnemonicParsing="false" onAction="#processNavPaneButton" text="V" />
+            <ListView fx:id="messagesListView" layoutX="232.0" layoutY="71.0" prefHeight="463.0" prefWidth="550.0" />
             </children>
         </AnchorPane>
     </children>

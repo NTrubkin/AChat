@@ -24,8 +24,6 @@ public class ChatController {
     private Model model;
 
     @FXML
-    private TextArea area;   // поле вывода сообщений
-    @FXML
     private TextField field; // поле ввода сообщений
 
     @FXML
@@ -39,6 +37,10 @@ public class ChatController {
     private ListView<Conversation> conversListView;
     @FXML
     private ListView<User> friendsListView;
+    @FXML
+    private ListView<User> nonMemberConversListView;
+    @FXML
+    private ListView messagesListView;
 
     @FXML
     private TextField newConversName;
@@ -49,11 +51,17 @@ public class ChatController {
     public Button conversPaneButton;
     @FXML
     public Button friendsPaneButton;
+    @FXML
+    private Button nonMembersConversPaneButton;
+
 
     @FXML
     public AnchorPane friendsPane;
     @FXML
     public AnchorPane conversPane;
+    @FXML
+    private AnchorPane nonMembersConvers;
+
 
     @FXML
     public Label navLabel;
@@ -77,6 +85,16 @@ public class ChatController {
                     model.setConvers(newVal.getId());
                 });
         friendsListView.setItems(model.getFriends());
+
+        nonMemberConversListView.setItems(model.getNonMembersConversation());
+        nonMemberConversListView.getSelectionModel().selectedItemProperty().addListener(
+                (ObservableValue<? extends User> ov, User oldVal,
+                 User newVal) -> {
+                    // @todo снять выделение выбранной ячейки (иначе вызывает исключение)
+                    model.addUserToCurrentConvers(newVal.getId());
+                });
+        messagesListView.setItems(model.getMessages());
+
         showConversationsPane();
         navPane.setVisible(false);
     }
@@ -90,20 +108,6 @@ public class ChatController {
         model.sendMessage(text);
         field.clear();
 
-    }
-
-    /**
-     * Выводит на экран новое сообщение
-     *
-     * @param text текст нового сообщения
-     */
-    void appendMessage(String text) {
-        area.appendText(text);
-        area.appendText("\n");
-    }
-
-    public void clearMessages() {
-        area.clear();
     }
 
     public void setConversName(String name) {
@@ -132,25 +136,46 @@ public class ChatController {
     public void showFriendsPane() {
         friendsPane.setVisible(true);
         conversPane.setVisible(false);
+        nonMembersConvers.setVisible(false);
         navLabel.setText("Друзья");
     }
 
     public void showConversationsPane() {
         friendsPane.setVisible(false);
         conversPane.setVisible(true);
+        nonMembersConvers.setVisible(false);
         navLabel.setText("Беседы");
+    }
+
+    public void showNonMembersConversPane() {
+        friendsPane.setVisible(false);
+        conversPane.setVisible(false);
+        nonMembersConvers.setVisible(true);
+        navLabel.setText("Добавить в беседу");
     }
 
     public void processConversPaneButton() {
         showConversationsPane();
+        navPane.setVisible(false);
     }
 
     public void processFriendsPaneButton() {
         showFriendsPane();
+        navPane.setVisible(false);
     }
 
     @FXML
     public void processNavPaneButton() {
         navPane.setVisible(!navPane.isVisible());
+    }
+
+    public void processNonMembersConversPaneButton() {
+        model.loadNonMembersConverastion();
+        showNonMembersConversPane();
+        navPane.setVisible(false);
+    }
+
+    public void setNonMembersConversPaneButtonState(boolean disabled) {
+        nonMembersConversPaneButton.setDisable(disabled);
     }
 }

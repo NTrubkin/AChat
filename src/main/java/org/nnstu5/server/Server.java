@@ -58,7 +58,7 @@ public class Server implements ServerRemote {
         }
         for (ClientRemote client : clients) {
             if (client.getCurrentConversationId() == conversId) {
-                client.showMessage(message);
+                client.newShowMessage(message);
             }
         }
     }
@@ -76,6 +76,7 @@ public class Server implements ServerRemote {
         try {
             return db.getMessages(conversId, initiatorId);
         } catch (SQLException e) {
+            System.out.println("sql error");
             return new ArrayList<>();
         }
     }
@@ -141,6 +142,24 @@ public class Server implements ServerRemote {
             e.printStackTrace();
         }
         return new ArrayList<>();
+    }
+
+
+    public List<User> getNonMembersConversation(int userId, int conversId) {
+        try {
+            return db.getNonMemberFriends(userId, conversId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+
+    public void addUserToConvers(int conversId, int userId, int initiatorId) {
+        try {
+            db.addUserToConversation(conversId, userId, initiatorId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 

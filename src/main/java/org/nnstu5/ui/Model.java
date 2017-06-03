@@ -43,7 +43,6 @@ public class Model {
 
     public void setConvers(int id) {
         client.setCurrentConvers(id);
-        showMessages(client.loadCurrentConversHistory());
     }
 
     /**
@@ -59,29 +58,9 @@ public class Model {
         }
     }
 
-    /**
-     * Запрашивает у контроллера отрисовку нового сообщения.
-     *
-     * @param message контейнер для одного сообщения
-     */
-    public void showMessage(Message message) {
-        controller.appendMessage("#" + message.getSenderId() + ": " + message.getText());
-    }
-
-    /**
-     * Принимает от showHistory() коллекцию сообщений беседы List<Message> и каждое сообщение выводит через showMessage().
-     *
-     * @param messages список со множеством сообщений.
-     */
-    private void showMessages(List<Message> messages) {
-        controller.clearMessages();
-        for (Message message : messages) {
-            showMessage(message);
-        }
-    }
-
     public void showCurrentConversation(String conversName) {
         controller.setConversName(conversName);
+        updateNonMembersConversPaneButton();
     }
 
     public void showCurrentUser(User user) {
@@ -92,12 +71,20 @@ public class Model {
         controller.setEmail(email);
     }
 
+    public ObservableList<Message> getMessages() {
+        return client.getMessages();
+    }
+
     public ObservableList<Conversation> getConversations() {
         return client.getConversations();
     }
 
     public ObservableList<User> getFriends() {
         return client.getFriends();
+    }
+
+    public ObservableList<User> getNonMembersConversation() {
+        return client.getNonMembersConversation();
     }
 
     public void createConversation(String name) {
@@ -110,5 +97,21 @@ public class Model {
         if (ChatRules.isValidUserEmail(email)) {
             client.addFriend(email);
         }
+    }
+
+    public void loadNonMembersConverastion() {
+        client.loadNonMembersConverastion();
+    }
+
+    public void updateNonMembersConversPaneButton() {
+        if (client.isAuthorizedUserCreatorOfCurrentConvers()) {
+            controller.setNonMembersConversPaneButtonState(false);
+        } else {
+            controller.setNonMembersConversPaneButtonState(true);
+        }
+    }
+
+    public void addUserToCurrentConvers(int userId) {
+        client.addUserToCurrentConvers(userId);
     }
 }
