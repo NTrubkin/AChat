@@ -21,7 +21,6 @@ import org.nnstu5.ui.customElement.ContainerButton;
  */
 public class ChatController {
 
-
     private Model model;
 
     @FXML
@@ -56,6 +55,12 @@ public class ChatController {
     @FXML
     public AnchorPane conversPane;
 
+    @FXML
+    public Label navLabel;
+
+    @FXML
+    public AnchorPane navPane;
+
 
     @FXML
     public void initialize() {
@@ -73,6 +78,7 @@ public class ChatController {
                 });
         friendsListView.setItems(model.getFriends());
         showConversationsPane();
+        navPane.setVisible(false);
     }
 
     /**
@@ -126,15 +132,13 @@ public class ChatController {
     public void showFriendsPane() {
         friendsPane.setVisible(true);
         conversPane.setVisible(false);
-        friendsPaneButton.setDisable(true);
-        conversPaneButton.setDisable(false);
+        navLabel.setText("Друзья");
     }
 
     public void showConversationsPane() {
         friendsPane.setVisible(false);
         conversPane.setVisible(true);
-        friendsPaneButton.setDisable(false);
-        conversPaneButton.setDisable(true);
+        navLabel.setText("Беседы");
     }
 
     public void processConversPaneButton() {
@@ -143,5 +147,10 @@ public class ChatController {
 
     public void processFriendsPaneButton() {
         showFriendsPane();
+    }
+
+    @FXML
+    public void processNavPaneButton() {
+        navPane.setVisible(!navPane.isVisible());
     }
 }
