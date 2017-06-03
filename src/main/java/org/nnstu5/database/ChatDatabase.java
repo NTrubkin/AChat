@@ -425,4 +425,24 @@ public class ChatDatabase implements AutoCloseable {
         friendsHandler.deleteFriendPair(initiatorId, friendId);
         dbController.commitTransaction();
     }
+
+    /**
+     * Формирует список друзей пользователя userId, которые не являются членами conversId
+     *
+     * @param userId пользователь, чьих друзей нужно найти
+     * @param conversId беседа, в которую не входят друзья
+     * @return List<User> список друзей, не являющихся членами conversId
+     */
+    public List<User> getNonMemberFriends(int userId, int conversId) throws SQLException {
+        // проверка аргументов
+        if (!userHandler.checkUser(userId)
+                || !conversHandler.checkConversation(conversId)) {
+            throw new IllegalArgumentException(ILL_ARGS_MSG);
+        }
+
+        List<ArgLine> friends = friendsHandler.selectNonMemberFriends(userId, conversId);
+        List<User> results = convertManager.wrapFriends(friends);
+        dbController.commitTransaction();
+        return results;
+    }
 }
