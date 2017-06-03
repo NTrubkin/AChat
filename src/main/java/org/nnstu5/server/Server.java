@@ -76,6 +76,7 @@ public class Server implements ServerRemote {
         try {
             return db.getMessages(conversId, initiatorId);
         } catch (SQLException e) {
+            System.out.println("sql error");
             return new ArrayList<>();
         }
     }
@@ -137,6 +138,20 @@ public class Server implements ServerRemote {
     public List<User> getFriends(int initiatorId) {
         try {
             return db.getUserFriends(initiatorId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+
+    /**
+     * Тестовый метод
+     * @param userId
+     * @return
+     */
+    public List<User> getNonMembersConversation(int userId) {
+        try {
+            return db.getUserFriends(userId);
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -39,6 +39,9 @@ public class ChatController {
     private ListView<Conversation> conversListView;
     @FXML
     private ListView<User> friendsListView;
+    @FXML
+    private ListView<User> nonMemberConversListView;
+
 
     @FXML
     private TextField newConversName;
@@ -54,6 +57,9 @@ public class ChatController {
     public AnchorPane friendsPane;
     @FXML
     public AnchorPane conversPane;
+    @FXML
+    private AnchorPane nonMembersConvers;
+
 
     @FXML
     public Label navLabel;
@@ -77,6 +83,13 @@ public class ChatController {
                     model.setConvers(newVal.getId());
                 });
         friendsListView.setItems(model.getFriends());
+
+        nonMemberConversListView.setItems(model.getNonMembersConversation());
+        nonMemberConversListView.getSelectionModel().selectedItemProperty().addListener(
+                (ObservableValue<? extends User> ov, User oldVal,
+                 User newVal) -> {
+                    System.out.println("Все работает");
+                });
         showConversationsPane();
         navPane.setVisible(false);
     }
@@ -132,25 +145,41 @@ public class ChatController {
     public void showFriendsPane() {
         friendsPane.setVisible(true);
         conversPane.setVisible(false);
+        nonMembersConvers.setVisible(false);
         navLabel.setText("Друзья");
     }
 
     public void showConversationsPane() {
         friendsPane.setVisible(false);
         conversPane.setVisible(true);
+        nonMembersConvers.setVisible(false);
         navLabel.setText("Беседы");
+    }
+
+    public void showNonMembersConvers() {
+        friendsPane.setVisible(false);
+        conversPane.setVisible(false);
+        nonMembersConvers.setVisible(true);
+        navLabel.setText("Добавить в беседу");
     }
 
     public void processConversPaneButton() {
         showConversationsPane();
+        navPane.setVisible(false);
     }
 
     public void processFriendsPaneButton() {
         showFriendsPane();
+        navPane.setVisible(false);
     }
 
     @FXML
     public void processNavPaneButton() {
         navPane.setVisible(!navPane.isVisible());
+    }
+
+    public void processAddMemberConvers() {
+        showNonMembersConvers();
+        navPane.setVisible(false);
     }
 }

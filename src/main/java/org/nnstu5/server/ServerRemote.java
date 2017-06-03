@@ -34,5 +34,7 @@ public interface ServerRemote extends Remote {
     void addFriend(String email, int initiatorId) throws RemoteException;
 
     List<User> getFriends(int initiatorId) throws RemoteException;
+
+    List<User> getNonMembersConversation(int userId) throws RemoteException; // Тестовый метод
 }
 

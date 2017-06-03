@@ -27,6 +27,7 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
     private User authorizedUser;    // контейнер с публичной информацией о пользователе.
     private ObservableList<Conversation> conversations = FXCollections.observableArrayList();
     private ObservableList<User> friends = FXCollections.observableArrayList();
+    private ObservableList<User> nonMembersConversations = FXCollections.observableArrayList();
 
     private Conversation currentConvers;
 
@@ -49,6 +50,7 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
             e.printStackTrace();
         }
     }
+
 
     /**
      * Отправляет серверу сообщение
@@ -157,6 +159,11 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
         return friends;
     }
 
+    public ObservableList<User> getNonMembersConversation() {
+        loadNonMembersConverastion();
+        return nonMembersConversations;
+    }
+
     private void loadFriends() {
         try {
             friends.clear();
@@ -166,6 +173,14 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
         }
     }
 
+    private void loadNonMembersConverastion() {
+        nonMembersConversations.clear();
+        try {
+            nonMembersConversations.addAll(server.getNonMembersConversation(authorizedUser.getId()));
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
     public void createConversation(String name) {
         try {
             server.createConversation(name, authorizedUser.getId());
