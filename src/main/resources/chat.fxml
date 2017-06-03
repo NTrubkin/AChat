@@ -39,6 +39,11 @@
                         <Image url="@backgroundChat.jpg" />
                     </image>
                 </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@iconContact.png" />
+               </image>
+            </ImageView>
             <AnchorPane fx:id="friendsPane" layoutX="6.0" layoutY="56.0" prefHeight="463.0" prefWidth="209.0">
                <children>
                   <ListView fx:id="friendsListView" prefHeight="404.0" prefWidth="200.0" />
@@ -95,8 +100,18 @@
                   </ImageView>
                </children>
             </Pane>
-            <Button fx:id="conversPaneButton" layoutX="22.0" layoutY="26.0" mnemonicParsing="false" onAction="#processConversPaneButton" prefHeight="25.0" prefWidth="68.0" text="Беседы" />
-            <Button fx:id="friendsPaneButton" layoutX="122.0" layoutY="26.0" mnemonicParsing="false" onAction="#processFriendsPaneButton" prefHeight="25.0" prefWidth="68.0" text="Друзья" />
+            <Label fx:id="navLabel" layoutX="69.0" layoutY="14.0" prefHeight="25.0" prefWidth="84.0" text="Menu item" textFill="#fff7f7">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <AnchorPane fx:id="navPane" layoutX="107.0" layoutY="52.0" prefHeight="71.0" prefWidth="93.0">
+               <children>
+                  <Button fx:id="conversPaneButton" layoutX="20.0" layoutY="15.0" mnemonicParsing="false" onAction="#processConversPaneButton" prefHeight="25.0" prefWidth="68.0" text="Беседы" />
+                  <Button fx:id="friendsPaneButton" layoutX="18.0" layoutY="41.0" mnemonicParsing="false" onAction="#processFriendsPaneButton" prefHeight="25.0" prefWidth="68.0" text="Друзья" />
+               </children>
+            </AnchorPane>
+            <Button layoutX="173.0" layoutY="14.0" mnemonicParsing="false" onAction="#processNavPaneButton" text="V" />
             </children>
         </AnchorPane>
     </children>
