@@ -173,7 +173,7 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
         }
     }
 
-    private void loadNonMembersConverastion() {
+    public void loadNonMembersConverastion() {
         nonMembersConversations.clear();
         try {
             nonMembersConversations.addAll(server.getNonMembersConversation(authorizedUser.getId()));
@@ -181,6 +181,7 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
             e.printStackTrace();
         }
     }
+
     public void createConversation(String name) {
         try {
             server.createConversation(name, authorizedUser.getId());
@@ -199,6 +200,13 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
             System.out.println("Illegal argument by adding new friend");
         }
         loadFriends();
+    }
+
+    public boolean isValidCreatorIdConversationId() {
+        if (authorizedUser.getId() == currentConvers.getId()) {
+            return true;
+        }
+        return false;
     }
 }
 

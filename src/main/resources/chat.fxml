@@ -71,7 +71,7 @@
                         <Font name="Open Sans Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" onAction="#processAddMemberConvers" prefHeight="25.0" prefWidth="121.0" text="Добавить в беседу" />
+                  <Button fx:id="addMemberConvers" mnemonicParsing="false" onAction="#processAddMemberConvers" prefHeight="25.0" prefWidth="121.0" text="Добавить в беседу" />
                </children>
             </HBox>
             <Pane layoutX="3.0" layoutY="546.0" prefHeight="53.0" prefWidth="216.0">

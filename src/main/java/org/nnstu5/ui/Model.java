@@ -113,4 +113,13 @@ public class Model {
             client.addFriend(email);
         }
     }
+    public boolean isValidCreatorIdConversationId(){
+        if (client.isValidCreatorIdConversationId() == true) {
+            return true;
+        }
+        return false;
+    }
+    public void loadNonMembersConverastion() {
+        client.loadNonMembersConverastion();
+    }
 }

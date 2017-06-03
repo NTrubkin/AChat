@@ -52,6 +52,9 @@ public class ChatController {
     public Button conversPaneButton;
     @FXML
     public Button friendsPaneButton;
+    @FXML
+    private Button addMemberConvers;
+
 
     @FXML
     public AnchorPane friendsPane;
@@ -179,7 +182,12 @@ public class ChatController {
     }
 
     public void processAddMemberConvers() {
-        showNonMembersConvers();
-        navPane.setVisible(false);
+        model.loadNonMembersConverastion();
+        if (model.isValidCreatorIdConversationId() == true) {
+            showNonMembersConvers();
+            navPane.setVisible(false);
+        } else {
+            addMemberConvers.disabledProperty();
+        }
     }
 }
