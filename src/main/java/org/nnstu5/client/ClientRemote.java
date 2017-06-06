@@ -16,5 +16,5 @@ public interface ClientRemote extends Remote {
 
     int getCurrentConversationId() throws RemoteException;
 
-    void newShowMessage(Message message) throws RemoteException;
+    void showMessage(Message message) throws RemoteException;
 }

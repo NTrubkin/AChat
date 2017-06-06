@@ -1,5 +1,6 @@
 package org.nnstu5.client;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.nnstu5.container.Conversation;
@@ -63,8 +64,14 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
         server.recieveMessage(new Message(text, authorizedUser.getId()), currentConvers.getId());
     }
 
-    public void newShowMessage(Message message) {
-        messages.add(message);
+    public void showMessage(Message message) throws RemoteException {
+        // необходиммо использовать Platform.runLater, поскольку метод нельзя вызвать в этом потоке
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                messages.add(message);
+            }
+        });
     }
 
     /**
