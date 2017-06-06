@@ -103,14 +103,6 @@ public class ChatController {
             });
             return cell;
         });
-/*        nonMemberConversListView.getSelectionModel().selectedItemProperty().addListener(
-                (ObservableValue<? extends User> ov, User oldVal,
-                 User newVal) -> {
-                    nonMemberConversListView.getSelectionModel().clearSelection();
-                    if(newVal != null) {        // newVal может быть null, когда ObservableList полностью очищается и перестраивается
-                        model.addUserToCurrentConvers(newVal.getId());
-                    }
-                });*/
 
         messagesListView.setItems(model.getMessages());
         messagesListView.setCellFactory((ListView<Message> l) -> new MessageCell());
