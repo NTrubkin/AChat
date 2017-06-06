@@ -49,26 +49,31 @@
                         <Image url="@line.png" />
                     </image>
                 </ImageView>
-                <AnchorPane fx:id="friendsPane" layoutX="6.0" layoutY="56.0" prefHeight="487.0" prefWidth="209.0">
+                <AnchorPane fx:id="friendsPane" layoutX="19.0" layoutY="66.0" prefHeight="463.0" prefWidth="181.0" visible="false">
                     <children>
-                        <ListView fx:id="friendsListView" prefHeight="436.0" prefWidth="200.0" />
-                        <Button layoutX="170.0" layoutY="449.0" mnemonicParsing="false" onAction="#processAddFriendButton" prefHeight="32.0" prefWidth="32.0" style="-fx-background-image: url(iconContactAdd.png); -fx-background-color: rgba(0,0,0,0);" />
-                        <TextField fx:id="newFriendEmail" layoutX="8.0" layoutY="452.0" prefHeight="25.0" prefWidth="155.0" promptText="Еmail" style="-fx-background-color: #293135; -fx-prompt-text-fill: #666666;">
+                        <ListView fx:id="friendsListView" prefHeight="429.0" prefWidth="179.0" />
+                        <Button layoutX="149.0" layoutY="439.0" mnemonicParsing="false" onAction="#processAddFriendButton" prefHeight="32.0" prefWidth="32.0" style="-fx-background-image: url(iconContactAdd.png); -fx-background-color: rgba(0,0,0,0);" />
+                        <TextField fx:id="newFriendEmail" layoutY="442.0" prefHeight="25.0" prefWidth="128.0" promptText="Еmail" style="-fx-background-color: #293135; -fx-prompt-text-fill: #666666;">
                             <font>
                                 <Font name="Open Sans Light Italic" size="12.0" />
                             </font>
                         </TextField>
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id="conversPane" layoutX="6.0" layoutY="56.0" prefHeight="487.0" prefWidth="210.0" visible="false">
+                <AnchorPane fx:id="conversPane" layoutX="19.0" layoutY="66.0" prefHeight="463.0" prefWidth="181.0" visible="false">
                     <children>
-                        <ListView fx:id="conversListView" prefHeight="404.0" prefWidth="200.0" />
-                        <Button layoutX="170.0" layoutY="449.0" mnemonicParsing="false" onAction="#processCreateConversationButton" prefHeight="32.0" prefWidth="32.0" style="-fx-background-color: rgba(0,0,0,0); -fx-background-image: url(addConv.png);" />
-                        <TextField fx:id="newConversName" layoutX="8.0" layoutY="452.0" prefHeight="25.0" prefWidth="155.0" promptText="Имя беседы" style="-fx-background-color: #293135; -fx-prompt-text-fill: #666666;">
+                        <ListView fx:id="conversListView" prefHeight="429.0" prefWidth="179.0" />
+                        <Button layoutX="149.0" layoutY="439.0" mnemonicParsing="false" onAction="#processCreateConversationButton" prefHeight="32.0" prefWidth="32.0" style="-fx-background-color: rgba(0,0,0,0); -fx-background-image: url(addConv.png);" />
+                        <TextField fx:id="newConversName" layoutY="442.0" prefHeight="25.0" prefWidth="128.0" promptText="Имя беседы" style="-fx-background-color: #293135; -fx-prompt-text-fill: #666666;">
                             <font>
                                 <Font name="Open Sans Light Italic" size="12.0" />
                             </font>
                         </TextField>
+                    </children>
+                </AnchorPane>
+                <AnchorPane fx:id="nonMembersConvers" layoutX="19.0" layoutY="66.0" prefHeight="463.0">
+                    <children>
+                        <ListView fx:id="nonMemberConversListView" prefHeight="463.0" prefWidth="179.0" />
                     </children>
                 </AnchorPane>
                 <Button fx:id="but" focusTraversable="false" layoutX="758.0" layoutY="560.0" mnemonicParsing="false" onAction="#processSendButton" prefHeight="24.0" prefWidth="24.0" style="-fx-background-image: url(iconSend.png); -fx-background-color: rgba(0,0,0,0);" />
@@ -115,17 +120,12 @@
                         </ImageView>
                     </children>
                 </Pane>
-                <Label fx:id="navLabel" layoutX="56.0" layoutY="9.0" prefHeight="35.0" prefWidth="107.0" text="Menu item" textFill="#cccccc">
+                <Label fx:id="navLabel" layoutX="51.0" layoutY="9.0" prefHeight="35.0" prefWidth="128.0" text="Menu item" textFill="#cccccc">
                     <font>
-                        <Font name="Open Sans Bold" size="19.0" />
+                        <Font size="16.0" />
                     </font>
                 </Label>
-                <AnchorPane fx:id="nonMembersConvers" layoutX="14.0" layoutY="68.0" prefHeight="463.0" prefWidth="209.0">
-                    <children>
-                        <ListView fx:id="nonMemberConversListView" prefHeight="404.0" prefWidth="200.0" />
-                    </children>
-                </AnchorPane>
-                <AnchorPane fx:id="navPane" layoutX="10.0" layoutY="50.0" prefHeight="81.0" prefWidth="200.0">
+                <AnchorPane fx:id="navPane" layoutX="10.0" layoutY="50.0" prefHeight="81.0" prefWidth="200.0" visible="false">
                     <children>
                         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -134,7 +134,7 @@
                         </ImageView>
                         <VBox layoutX="18.0" layoutY="7.0" prefHeight="64.0" prefWidth="166.0">
                             <children>
-                                <Button fx:id="conversPaneButton" layoutX="20.0" layoutY="15.0" mnemonicParsing="false" onAction="#processConversPaneButton" prefHeight="32.0" prefWidth="164.0" style="-fx-alignment: LEFT;" stylesheets="@btnDDMenu.css" text="Беседы" textFill="#cccccc">
+                                <Button fx:id="conversPaneButton" layoutX="20.0" layoutY="15.0" mnemonicParsing="false" onAction="#processConversPaneButton" prefHeight="32.0" prefWidth="164.0" style="-fx-alignment: center-left;" stylesheets="@btnDDMenu.css" text="Беседы" textFill="#cccccc">
                                     <font>
                                         <Font name="Open Sans" size="12.0" />
                                     </font>
@@ -149,7 +149,7 @@
                                         </ImageView>
                                     </graphic>
                                 </Button>
-                                <Button fx:id="friendsPaneButton" focusTraversable="false" layoutX="18.0" layoutY="41.0" mnemonicParsing="false" onAction="#processFriendsPaneButton" prefHeight="25.0" prefWidth="158.0" style="-fx-alignment: LEFT;" stylesheets="@btnDDMenu.css" text="Друзья" textFill="#cccccc">
+                                <Button fx:id="friendsPaneButton" focusTraversable="false" layoutX="18.0" layoutY="41.0" mnemonicParsing="false" onAction="#processFriendsPaneButton" prefHeight="25.0" prefWidth="158.0" style="-fx-alignment: center-left;" stylesheets="@btnDDMenu.css" text="Друзья" textFill="#cccccc">
                                     <font>
                                         <Font name="Open Sans" size="12.0" />
                                     </font>

@@ -163,7 +163,7 @@ public class ChatController {
         friendsPane.setVisible(false);
         conversPane.setVisible(false);
         nonMembersConvers.setVisible(true);
-        navLabel.setText("Добавить в беседу");
+        navLabel.setText("Добавить...");
     }
 
     public void processConversPaneButton() {
