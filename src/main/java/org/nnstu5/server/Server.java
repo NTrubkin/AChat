@@ -58,7 +58,7 @@ public class Server implements ServerRemote {
         }
         for (ClientRemote client : clients) {
             if (client.getCurrentConversationId() == conversId) {
-                client.newShowMessage(message);
+                client.showMessage(message);
             }
         }
     }
@@ -160,6 +160,15 @@ public class Server implements ServerRemote {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<User> getConversationMembers(int conversId) {
+        try {
+            return db.getConversationMembers(conversId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
     }
 }
 

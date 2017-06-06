@@ -19,7 +19,11 @@ import java.util.Scanner;
 public class ServerLauncher {
     private static final String EXIT_CMD = "stop";
 
+    // static ссылки, чтобы избежать gc
     private static Registry registry;
+    private static ServerRemote obj;
+    private static ServerRemote stub;
+
     private static ChatDatabase db = ChatDatabase.getInstance();
     /**
      * регистрация сервера в реестре RMI.
@@ -46,9 +50,9 @@ public class ServerLauncher {
         }
 
         private static void open() throws RemoteException, AlreadyBoundException {
-            ServerRemote obj = new Server();
+            obj = new Server();
             registry = LocateRegistry.createRegistry(ChatRules.RMI_PORT);
-            ServerRemote stub = (ServerRemote) UnicastRemoteObject.exportObject(obj, 0);
+            stub = (ServerRemote) UnicastRemoteObject.exportObject(obj, 0);
 
             registry.bind(ChatRules.RMI_BIND_KEY, stub);
         }

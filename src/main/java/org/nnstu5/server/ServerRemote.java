@@ -38,5 +38,7 @@ public interface ServerRemote extends Remote {
     List<User> getNonMembersConversation(int userId, int conversId) throws RemoteException;
 
     void addUserToConvers(int conversId, int userId, int initiatorId) throws RemoteException;
+
+    List<User> getConversationMembers(int conversId) throws RemoteException;
 }
 

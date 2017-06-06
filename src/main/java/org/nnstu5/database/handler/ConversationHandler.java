@@ -29,6 +29,9 @@ public class ConversationHandler extends DatabasePartHandler {
     private static final String SQL_DELETE_CONV = "delete from conversation where (convers_id = ?);";
     private static final String SQL_CHECK_CREATOR = "select convers_id from conversation where (convers_id = ?) & (creator_id = ?);";
     private static final String SQL_CHECK_USER = "select convers_id from convers_member where (convers_id = ?) & (member_id = ?);";
+    private static final String SQL_SELECT_MEMBERS = "select account_id, nickname, email\n" +
+            "from (select member_id from convers_member where convers_id = ?) m inner join account a\n" +
+            "    on m.member_id == a.account_id;";
 
     public ConversationHandler(Preparatory statementCreator) {
         super(statementCreator);
@@ -136,5 +139,13 @@ public class ConversationHandler extends DatabasePartHandler {
      */
     public boolean isUserInConversation(int userId, int conversationId) throws SQLException {
         return checkBySelect(SQL_CHECK_USER, new ArgHolder(conversationId), new ArgHolder(userId));
+    }
+
+    public List<ArgLine> selectConversationMembers(int conversId) throws SQLException {
+        ArgHolder[] argHolders = {new ArgHolder(conversId)};
+        ArgMask[] resultMasks = {new ArgMask(ArgType.INTEGER, "account_id"),
+                new ArgMask(ArgType.STRING, "nickname"),
+                new ArgMask(ArgType.STRING, "email")};
+        return select(SQL_SELECT_MEMBERS, argHolders, resultMasks);
     }
 }

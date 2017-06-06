@@ -63,7 +63,7 @@ class ConvertManager {
     }
 
     /**
-     * Оборачивает беседы в контейнеры User по определенным лейблам
+     * Оборачивает друзей в контейнеры User по определенным лейблам
      * @param argLines результат запроса
      * @return коллекция User
      */
@@ -76,12 +76,25 @@ class ConvertManager {
     }
 
     /**
-     * Оборачивает одного пользователя в контейнер User по определенным лейблам
+     * Оборачивает одного друга в контейнер User по определенным лейблам
      * @param argLine строка результата запроса
      * @return User
      */
     private User wrapFriend(ArgLine argLine) {
         return new User(argLine, "friend_id", "nickname", "email");
+    }
+
+    /**
+     * Оборачивает пользователей в контейнер User по определенным лейблам
+     * @param argLines результат запроса
+     * @return коллекция User
+     */
+    List<User> wrapUsers(List<ArgLine> argLines) {
+        ArrayList<User> friends = new ArrayList<>();
+        for (ArgLine argLine : argLines) {
+            friends.add(wrapUser(argLine));
+        }
+        return friends;
     }
 
     public User wrapUser(ArgLine argLine) {

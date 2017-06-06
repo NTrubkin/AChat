@@ -1,11 +1,9 @@
 package org.nnstu5.client;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.nnstu5.container.Conversation;
-import org.nnstu5.container.CurrentUser;
-import org.nnstu5.container.Message;
-import org.nnstu5.container.User;
+import org.nnstu5.container.*;
 import org.nnstu5.server.ServerRemote;
 import org.nnstu5.ui.Model;
 
@@ -28,7 +26,8 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
     private ObservableList<Conversation> conversations = FXCollections.observableArrayList();
     private ObservableList<User> friends = FXCollections.observableArrayList();
     private ObservableList<User> nonMembersConversations = FXCollections.observableArrayList();
-    private ObservableList<Message> messages = FXCollections.observableArrayList();
+    private ObservableList<User> conversationMembers = FXCollections.observableArrayList();
+    private ObservableList<ExtendedMessage> messages = FXCollections.observableArrayList();
 
     private Conversation currentConvers;
 
@@ -46,7 +45,16 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
     private void loadConversations() {
         try {
             conversations.clear();
-            conversations.addAll((ArrayList) server.getConversations(authorizedUser.getId()));
+            conversations.addAll(server.getConversations(authorizedUser.getId()));
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadConversationMembers() {
+        try {
+            conversationMembers.clear();
+            conversationMembers.addAll(server.getConversationMembers(currentConvers.getId()));
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -63,8 +71,14 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
         server.recieveMessage(new Message(text, authorizedUser.getId()), currentConvers.getId());
     }
 
-    public void newShowMessage(Message message) {
-        messages.add(message);
+    public void showMessage(Message message) throws RemoteException {
+        // необходиммо использовать Platform.runLater, поскольку метод нельзя вызвать в этом потоке
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                messages.add(new ExtendedMessage(message, findMemberNameById(message.getSenderId())));
+            }
+        });
     }
 
     /**
@@ -130,6 +144,7 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
             if (conversation.getId() == id) {
                 currentConvers = conversation;
                 model.showCurrentConversation(conversation.getName());
+                loadConversationMembers();
                 loadMessages();
                 return;
             }
@@ -140,7 +155,7 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
         return currentConvers.getId();
     }
 
-    public ObservableList<Message> getMessages() {
+    public ObservableList<ExtendedMessage> getMessages() {
         return messages;
     }
 
@@ -153,7 +168,6 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
     }
 
     public ObservableList<User> getNonMembersConversation() {
-        loadNonMembersConverastion();
         return nonMembersConversations;
     }
 
@@ -161,7 +175,11 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
     private void loadMessages() {
         messages.clear();
         try {
-            messages.addAll(server.getHistory(currentConvers.getId(), authorizedUser.getId()));
+            List<Message> history = server.getHistory(currentConvers.getId(), authorizedUser.getId());
+            for(Message msg : history) {
+                messages.add(new ExtendedMessage(msg, findMemberNameById(msg.getSenderId())));
+            }
+            messages.addAll();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -215,6 +233,15 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
             e.printStackTrace();
         }
         loadNonMembersConverastion();
+    }
+
+    private User findMemberNameById(int id) {
+        for(User member : conversationMembers) {
+            if(member.getId() == id) {
+                return member;
+            }
+        }
+        return null;
     }
 }
 

@@ -19,8 +19,10 @@ import java.rmi.server.UnicastRemoteObject;
  *         ClientLauncher управляет клиентской частью rmi соединения
  */
 public class ClientLauncher {
+    // static ссылки, чтобы избежать gc
     private static Registry registry;
     private static Client client;
+    private static ServerRemote stub;
 
     /**
      * Приватный конструктор. Предотвращает создание объектов класса
@@ -41,8 +43,8 @@ public class ClientLauncher {
         } else {
             try {
                 registry = LocateRegistry.getRegistry("localhost", ChatRules.RMI_PORT);
-                ServerRemote serverRemote = (ServerRemote) registry.lookup(ChatRules.RMI_BIND_KEY);
-                client = new Client(serverRemote);
+                stub = (ServerRemote) registry.lookup(ChatRules.RMI_BIND_KEY);
+                client = new Client(stub);
             } catch (Exception e) {
                 System.err.println("Client exception: " + e.toString());
                 e.printStackTrace();

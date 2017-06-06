@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="40.0" prefWidth="520.0" style="-fx-background-color: rgba(0,0,0,0);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icon/iconContact.png" />
+         </image></ImageView>
+      <Label fx:id="sender" layoutX="51.0" layoutY="2.0" text="User name" textFill="#004d40">
+         <font>
+            <Font name="Open Sans Semibold" size="12.0" />
+         </font></Label>
+      <Label fx:id="text" layoutX="51.0" layoutY="18.0" prefWidth="450.0" text="Message" textFill="#333333" wrapText="true">
+         <font>
+            <Font name="Open Sans" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

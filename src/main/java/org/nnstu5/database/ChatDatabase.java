@@ -445,4 +445,15 @@ public class ChatDatabase implements AutoCloseable {
         dbController.commitTransaction();
         return results;
     }
+
+    public List<User> getConversationMembers(int conversId) throws SQLException {
+        if (!conversHandler.checkConversation(conversId)) {
+            throw new IllegalArgumentException(ILL_ARGS_MSG);
+        }
+
+        List<ArgLine> members = conversHandler.selectConversationMembers(conversId);
+        List<User> results = convertManager.wrapUsers(members);
+        dbController.commitTransaction();
+        return results;
+    }
 }
