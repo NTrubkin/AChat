@@ -53,12 +53,20 @@ public class ClientLauncher {
         return client;
     }
 
+    public static void stop() throws Exception {
+        if (registry != null || client != null) {
+            client.unregister();
+            registry.unbind(ChatRules.RMI_BIND_KEY);
+            registry = null;
+            client = null;
+        }
+    }
+
     /**
      * Геттер для доступа к клиенту из модели.
      *
      * @return клиент
      */
-
     public static Client getClient() {
         return client;
     }

@@ -42,6 +42,14 @@ public class Client extends UnicastRemoteObject implements ClientRemote {
         server.registerClient(this);
     }
 
+    public void unregister() {
+        try {
+            server.unregisterClient(this);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void loadConversations() {
         try {
             conversations.clear();

@@ -47,6 +47,12 @@ public class ClientChatApplication extends Application {
      */
     @Override
     public void stop() throws Exception {
+        try {
+            ClientLauncher.stop();
+        }
+        catch (Exception exc) {
+            exc.printStackTrace();
+        }
         super.stop();
     }
 }
