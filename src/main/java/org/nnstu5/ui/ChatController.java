@@ -10,6 +10,7 @@ import org.nnstu5.container.Conversation;
 
 import java.util.ArrayList;
 
+import org.nnstu5.container.ExtendedMessage;
 import org.nnstu5.container.Message;
 import org.nnstu5.container.User;
 import org.nnstu5.ui.cell.ConversationCell;
@@ -43,7 +44,7 @@ public class ChatController {
     @FXML
     private ListView<User> nonMemberConversListView;
     @FXML
-    private ListView<Message> messagesListView;
+    private ListView<ExtendedMessage> messagesListView;
 
     @FXML
     private TextField newConversName;
@@ -105,7 +106,7 @@ public class ChatController {
         });
 
         messagesListView.setItems(model.getMessages());
-        messagesListView.setCellFactory((ListView<Message> l) -> new MessageCell());
+        messagesListView.setCellFactory((ListView<ExtendedMessage> l) -> new MessageCell());
 
         showConversationsPane();
         navPane.setVisible(false);

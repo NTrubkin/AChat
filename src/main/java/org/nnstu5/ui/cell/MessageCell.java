@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import org.nnstu5.container.ExtendedMessage;
 import org.nnstu5.container.Message;
 
 import java.io.IOException;
@@ -12,13 +13,13 @@ import java.io.IOException;
 /**
  * @author Trubkin Nikita
  */
-public class MessageCell extends ListCell<Message> {
+public class MessageCell extends ListCell<ExtendedMessage> {
     private static final String FXML = "/cell/messageCell.fxml";
     private static final String TEXT_ID = "text";
     private static final String SENDER_ID = "sender";
 
     @Override
-    public void updateItem(Message item, boolean empty) {
+    public void updateItem(ExtendedMessage item, boolean empty) {
         super.updateItem(item, empty);
         if (item != null) {
             try {
@@ -29,7 +30,7 @@ public class MessageCell extends ListCell<Message> {
                             ((Label)node).setText(item.getText());
                         }
                         if(node.getId().equals(SENDER_ID)) {
-                            ((Label)node).setText(item.getSenderId() + "");
+                            ((Label)node).setText(item.getSender().getNickname());
                         }
                     }
                 }

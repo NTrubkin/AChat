@@ -5,6 +5,7 @@ import org.nnstu5.ChatRules;
 import org.nnstu5.client.Client;
 import org.nnstu5.client.ClientLauncher;
 import org.nnstu5.container.Conversation;
+import org.nnstu5.container.ExtendedMessage;
 import org.nnstu5.container.Message;
 import org.nnstu5.container.User;
 
@@ -71,7 +72,7 @@ public class Model {
         controller.setEmail(email);
     }
 
-    public ObservableList<Message> getMessages() {
+    public ObservableList<ExtendedMessage> getMessages() {
         return client.getMessages();
     }
 

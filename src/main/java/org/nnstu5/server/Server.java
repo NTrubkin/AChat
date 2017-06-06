@@ -161,6 +161,15 @@ public class Server implements ServerRemote {
             e.printStackTrace();
         }
     }
+
+    public List<User> getConversationMembers(int conversId) {
+        try {
+            return db.getConversationMembers(conversId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
 }
 
 
