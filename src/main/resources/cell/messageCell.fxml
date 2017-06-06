@@ -15,7 +15,7 @@
    <children>
       <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../iconContact.png" />
+            <Image url="@../icon/iconContact.png" />
          </image></ImageView>
       <Label fx:id="sender" layoutX="51.0" layoutY="2.0" text="User name" textFill="#004d40">
          <font>
