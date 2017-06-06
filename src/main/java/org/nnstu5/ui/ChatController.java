@@ -10,8 +10,11 @@ import org.nnstu5.container.Conversation;
 
 import java.util.ArrayList;
 
+import org.nnstu5.container.Message;
 import org.nnstu5.container.User;
-import org.nnstu5.ui.customElement.ContainerButton;
+import org.nnstu5.ui.cell.ConversationCell;
+import org.nnstu5.ui.cell.MessageCell;
+import org.nnstu5.ui.cell.UserCell;
 
 /**
  * @author Vermenik Maxim
@@ -40,7 +43,7 @@ public class ChatController {
     @FXML
     private ListView<User> nonMemberConversListView;
     @FXML
-    private ListView messagesListView;
+    private ListView<Message> messagesListView;
 
     @FXML
     private TextField newConversName;
@@ -54,7 +57,6 @@ public class ChatController {
     @FXML
     private Button nonMembersConversPaneButton;
 
-
     @FXML
     public AnchorPane friendsPane;
     @FXML
@@ -62,38 +64,56 @@ public class ChatController {
     @FXML
     private AnchorPane nonMembersConvers;
 
-
     @FXML
     public Label navLabel;
 
     @FXML
     public AnchorPane navPane;
 
-
     @FXML
     public void initialize() {
         // модель необходимо конструировать после того, как будут инициализированы поля разметки
         // иначе модель не сможет работать с полями
         model = new Model(this);
+
         conversListView.setItems(model.getConversations());
+        conversListView.setCellFactory(lcv -> {
+            ConversationCell cell = new ConversationCell();
+            cell.setOnMouseClicked(event -> {
+                Conversation item = cell.getItem();
+                if (item != null) {
+                    model.setConvers(item.getId());
+                }
+            });
+            return cell;
+        });
 
-/*        conversListView.setCellFactory((ListView<Conversation> l) -> new ConversationCell());*/
-
-        conversListView.getSelectionModel().selectedItemProperty().addListener(
-                (ObservableValue<? extends Conversation> ov, Conversation oldVal,
-                 Conversation newVal) -> {
-                    model.setConvers(newVal.getId());
-                });
         friendsListView.setItems(model.getFriends());
+        friendsListView.setCellFactory((ListView<User> l) -> new UserCell());
 
         nonMemberConversListView.setItems(model.getNonMembersConversation());
-        nonMemberConversListView.getSelectionModel().selectedItemProperty().addListener(
+        nonMemberConversListView.setCellFactory(lcv -> {
+            UserCell cell = new UserCell();
+            cell.setOnMouseClicked(event -> {
+                User item = cell.getItem();
+                if (item != null) {
+                    model.addUserToCurrentConvers(item.getId());
+                    nonMemberConversListView.getSelectionModel().clearSelection();
+                }
+            });
+            return cell;
+        });
+/*        nonMemberConversListView.getSelectionModel().selectedItemProperty().addListener(
                 (ObservableValue<? extends User> ov, User oldVal,
                  User newVal) -> {
-                    // @todo снять выделение выбранной ячейки (иначе вызывает исключение)
-                    model.addUserToCurrentConvers(newVal.getId());
-                });
+                    nonMemberConversListView.getSelectionModel().clearSelection();
+                    if(newVal != null) {        // newVal может быть null, когда ObservableList полностью очищается и перестраивается
+                        model.addUserToCurrentConvers(newVal.getId());
+                    }
+                });*/
+
         messagesListView.setItems(model.getMessages());
+        messagesListView.setCellFactory((ListView<Message> l) -> new MessageCell());
 
         showConversationsPane();
         navPane.setVisible(false);
