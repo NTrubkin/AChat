@@ -40,7 +40,11 @@ public class Server implements ServerRemote {
     @Override
 
     public synchronized void registerClient(ClientRemote client) throws RemoteException {
-        this.clients.add(client);
+        clients.add(client);
+    }
+
+    public synchronized void unregisterClient(ClientRemote client) throws RemoteException {
+        clients.remove(client);
     }
 
     /**

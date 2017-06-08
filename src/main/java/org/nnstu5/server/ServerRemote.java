@@ -19,6 +19,8 @@ public interface ServerRemote extends Remote {
 
     void registerClient(ClientRemote client) throws RemoteException;
 
+    void unregisterClient(ClientRemote client) throws RemoteException;
+
     void recieveMessage(Message message, int conversId ) throws RemoteException;
 
     List<Message> getHistory(int conversId,int initiatorId) throws RemoteException;
