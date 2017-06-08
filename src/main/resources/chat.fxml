@@ -49,11 +49,11 @@
                         <Image url="@line.png" />
                     </image>
                 </ImageView>
-                <AnchorPane fx:id="friendsPane" layoutX="19.0" layoutY="66.0" prefHeight="463.0" prefWidth="181.0" visible="false">
+                <AnchorPane fx:id="friendsPane" layoutX="19.0" layoutY="66.0" prefHeight="463.0" prefWidth="181.0">
                     <children>
                         <ListView fx:id="friendsListView" prefHeight="429.0" prefWidth="179.0" />
-                        <Button layoutX="149.0" layoutY="439.0" mnemonicParsing="false" onAction="#processAddFriendButton" prefHeight="32.0" prefWidth="32.0" style="-fx-background-image: url(/icon/iconContactAdd.png); -fx-background-color: rgba(0,0,0,0);" />
-                        <TextField fx:id="newFriendEmail" layoutY="442.0" prefHeight="25.0" prefWidth="128.0" promptText="Еmail" style="-fx-background-color: #293135; -fx-prompt-text-fill: #666666;">
+                        <Button layoutX="154.0" layoutY="441.0" mnemonicParsing="false" onAction="#processAddFriendButton" prefHeight="24.0" prefWidth="24.0" style="-fx-background-image: url(/icon/iconContactAdd.png); -fx-background-color: rgba(0,0,0,0);" />
+                        <TextField fx:id="newFriendEmail" layoutY="442.0" prefHeight="25.0" prefWidth="140.0" promptText="Еmail" style="-fx-background-color: #293135; -fx-prompt-text-fill: #666666; -fx-text-fill: #cccccc;">
                             <font>
                                 <Font name="Open Sans Light Italic" size="12.0" />
                             </font>
@@ -63,15 +63,15 @@
                 <AnchorPane fx:id="conversPane" layoutX="19.0" layoutY="66.0" prefHeight="463.0" prefWidth="181.0" visible="false">
                     <children>
                         <ListView fx:id="conversListView" prefHeight="429.0" prefWidth="179.0" />
-                        <Button layoutX="149.0" layoutY="439.0" mnemonicParsing="false" onAction="#processCreateConversationButton" prefHeight="32.0" prefWidth="32.0" style="-fx-background-color: rgba(0,0,0,0); -fx-background-image: url(/icon/addConv.png);" />
-                        <TextField fx:id="newConversName" layoutY="442.0" prefHeight="25.0" prefWidth="128.0" promptText="Имя беседы" style="-fx-background-color: #293135; -fx-prompt-text-fill: #666666;">
+                        <Button layoutX="154.0" layoutY="443.0" mnemonicParsing="false" onAction="#processCreateConversationButton" prefHeight="24.0" prefWidth="30.0" style="-fx-background-color: rgba(0,0,0,0); -fx-background-image: url(/icon/addConv.png);" />
+                        <TextField fx:id="newConversName" layoutY="442.0" prefHeight="25.0" prefWidth="140.0" promptText="Имя беседы" style="-fx-background-color: #293135; -fx-prompt-text-fill: #666666; -fx-text-fill: #cccccc;">
                             <font>
                                 <Font name="Open Sans Light Italic" size="12.0" />
                             </font>
                         </TextField>
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id="nonMembersConvers" layoutX="19.0" layoutY="66.0" prefHeight="463.0">
+                <AnchorPane fx:id="nonMembersConvers" layoutX="19.0" layoutY="66.0" prefHeight="463.0" visible="false">
                     <children>
                         <ListView fx:id="nonMemberConversListView" prefHeight="463.0" prefWidth="179.0" />
                     </children>
@@ -98,7 +98,10 @@
                                 <Font name="Open Sans Bold" size="16.0" />
                             </font>
                         </Label>
-                  <Button fx:id="nonMembersConversPaneButton" mnemonicParsing="false" onAction="#processNonMembersConversPaneButton" text="Добавить участника" />
+                  <Button fx:id="nonMembersConversPaneButton" minHeight="16.0" mnemonicParsing="false" onAction="#processNonMembersConversPaneButton" prefHeight="16.0" prefWidth="16.0" style="-fx-background-color: rgba(0,0,0,0); -fx-background-image: url(/icon/iconContactAddConv.png);">
+                     <HBox.margin>
+                        <Insets left="5.0" top="9.0" />
+                     </HBox.margin></Button>
                     </children>
                 </HBox>
                 <Pane layoutX="3.0" layoutY="546.0" prefHeight="53.0" prefWidth="216.0">
@@ -144,7 +147,7 @@
                                                 <Rectangle2D />
                                             </viewport>
                                             <image>
-                                                <Image url="@icon/btnIconFriends.png" />
+                                                <Image url="@icon/btnIconConv.png" />
                                             </image>
                                         </ImageView>
                                     </graphic>
@@ -156,7 +159,7 @@
                                     <graphic>
                                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@icon/btnIconConv.png" />
+                                                <Image url="@icon/btnIconFriends.png" />
                                             </image>
                                         </ImageView>
                                     </graphic>
